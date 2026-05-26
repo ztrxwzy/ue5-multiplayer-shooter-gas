@@ -33,7 +33,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development_Editor|x64'">
     <LocalDebuggerCommandArguments>"$(SolutionDir)ProtocolRiftArena.uproject" -skipcompile</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArgumentsHistory>"E:\Videogames\ue5-multiplayer-shooter-gas\ProtocolRiftArena\ProtocolRiftArena.uproject" -skipcompile|</LocalDebuggerCommandArgumentsHistory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_Development_Editor|x64'">
     <RemoteDebuggerCommandArguments>"$(SolutionDir)ProtocolRiftArena.uproject" -skipcompile</RemoteDebuggerCommandArguments>

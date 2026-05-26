@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6+Qb9GsL1Vs=",
+  "dgSpecHash": "81BQzCb6vE0=",
   "success": true,
   "projectFilePath": "E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Intermediate\\Build\\BuildRulesProjects\\ProtocolRiftArenaModuleRules\\ProtocolRiftArenaModuleRules.csproj",
   "expectedPackageFiles": [
@@ -117,10 +117,7 @@
     "C:\\Users\\jesus\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\jesus\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\jesus\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512",
-    "C:\\Users\\jesus\\.nuget\\packages\\zstdsharp.port\\0.8.6\\zstdsharp.port.0.8.6.nupkg.sha512",
-    "C:\\Users\\jesus\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.26\\microsoft.windowsdesktop.app.ref.8.0.26.nupkg.sha512",
-    "C:\\Users\\jesus\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.26\\microsoft.netcore.app.ref.8.0.26.nupkg.sha512",
-    "C:\\Users\\jesus\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.26\\microsoft.aspnetcore.app.ref.8.0.26.nupkg.sha512"
+    "C:\\Users\\jesus\\.nuget\\packages\\zstdsharp.port\\0.8.6\\zstdsharp.port.0.8.6.nupkg.sha512"
   ],
   "logs": []
 }

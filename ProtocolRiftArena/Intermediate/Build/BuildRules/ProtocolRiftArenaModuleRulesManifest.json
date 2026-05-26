@@ -1,6 +1,8 @@
 {
 	"SourceFiles": [
 		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Source\\ProtocolRiftArena\\ProtocolRiftArena.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\VisualStudioTools\\Source\\VisualStudioBlueprintDebuggerHelper\\VisualStudioBlueprintDebuggerHelper.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\VisualStudioTools.Build.cs",
 		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Source\\ProtocolRiftArena.Target.cs",
 		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Source\\ProtocolRiftArenaEditor.Target.cs"
 	],

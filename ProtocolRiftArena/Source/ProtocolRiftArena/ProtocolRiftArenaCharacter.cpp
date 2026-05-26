@@ -23,17 +23,19 @@ AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 	bUseControllerRotationRoll = false;
 
 	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->bOrientRotationToMovement = false;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 
 	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
 	// instead of recompiling to adjust them
 	GetCharacterMovement()->JumpZVelocity = 500.f;
 	GetCharacterMovement()->AirControl = 0.35f;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
+	GetCharacterMovement()->GetNavAgentPropertiesRef().bCanCrouch = true;
+	GetCharacterMovement()->MaxWalkSpeedCrouched = CrouchSpeed;
 
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -61,10 +63,19 @@ void AProtocolRiftArenaCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AProtocolRiftArenaCharacter::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &AProtocolRiftArenaCharacter::StopMove);
 		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &AProtocolRiftArenaCharacter::Look);
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AProtocolRiftArenaCharacter::Look);
+
+		//Sprinting
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoSprintStart);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AProtocolRiftArenaCharacter::DoSprintEnd);
+
+		//Crouch
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoCrouchStart);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AProtocolRiftArenaCharacter::DoCrouchEnd);
 	}
 	else
 	{
@@ -75,10 +86,13 @@ void AProtocolRiftArenaCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 void AProtocolRiftArenaCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	LastMovementInput = Value.Get<FVector2D>();
+	
+	//Sprint depends on whether the character is currently receiving movement input
+	RefreshSprintState();
 
 	// route the input
-	DoMove(MovementVector.X, MovementVector.Y);
+	DoMove(LastMovementInput.X, LastMovementInput.Y);
 }
 
 void AProtocolRiftArenaCharacter::Look(const FInputActionValue& Value)
@@ -131,3 +145,123 @@ void AProtocolRiftArenaCharacter::DoJumpEnd()
 	// signal the character to stop jumping
 	StopJumping();
 }
+
+void AProtocolRiftArenaCharacter::DoSprintStart()
+{
+	bWantsToSprint = true;
+	RefreshSprintState();
+}
+
+void AProtocolRiftArenaCharacter::DoSprintEnd()
+{
+	bWantsToSprint = false;
+	RefreshSprintState();
+}
+
+void AProtocolRiftArenaCharacter::SetSprinting(bool bNewSprinting)
+{
+	if (bIsSprinting == bNewSprinting)
+	{
+		return;
+	}
+
+	bIsSprinting = bNewSprinting;
+	UpdateMovementSpeed();
+}
+
+bool AProtocolRiftArenaCharacter::HasMovementInput() const
+{
+	return !LastMovementInput.IsNearlyZero();
+}
+
+bool AProtocolRiftArenaCharacter::CanSprint() const
+{
+	if (!HasMovementInput())
+	{
+		return false;
+	}
+	if (bIsCrouched)
+	{
+		return false;
+	}
+	const UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
+	if(!MovementComponent)
+	{
+		return false;
+	}
+
+	if(MovementComponent->IsFalling())
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void AProtocolRiftArenaCharacter::RefreshSprintState()
+{
+	const bool bShouldSprint = bWantsToSprint && CanSprint();
+	SetSprinting(bShouldSprint);
+}
+
+void AProtocolRiftArenaCharacter::StopMove()
+{
+	LastMovementInput = FVector2D::ZeroVector;
+	RefreshSprintState();
+}
+
+void AProtocolRiftArenaCharacter::OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode)
+{
+	Super::OnMovementModeChanged(PrevMovementMode, PreviousCustomMode);
+	RefreshSprintState();
+}
+
+void AProtocolRiftArenaCharacter::UpdateMovementSpeed()
+{
+	UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
+	if(!MovementComponent)
+	{
+		return;
+	}
+
+	if (bIsCrouched)
+	{
+		MovementComponent->MaxWalkSpeed = CrouchSpeed;
+		return;
+	}
+
+	if(bIsSprinting)
+	{
+		MovementComponent->MaxWalkSpeed = SprintSpeed;
+		return;
+	}
+
+	MovementComponent->MaxWalkSpeed = WalkSpeed;
+
+}
+
+void AProtocolRiftArenaCharacter::DoCrouchStart()
+{
+	UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoCrouchStart called"));
+	Crouch();
+}
+
+void AProtocolRiftArenaCharacter::DoCrouchEnd()
+{
+	UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoCrouchEnd called"));
+	UnCrouch();
+}
+
+void AProtocolRiftArenaCharacter::OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
+{
+	Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+	SetSprinting(false);
+	UpdateMovementSpeed();
+}
+
+void AProtocolRiftArenaCharacter::OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
+{
+	Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+	RefreshSprintState();
+	UpdateMovementSpeed();
+}	

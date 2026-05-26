@@ -18,6 +18,15 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 // ********** Begin Class AProtocolRiftArenaCharacter **********************************************
 #define FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_24_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execUpdateMovementSpeed); \
+	DECLARE_FUNCTION(execDoCrouchEnd); \
+	DECLARE_FUNCTION(execDoCrouchStart); \
+	DECLARE_FUNCTION(execRefreshSprintState); \
+	DECLARE_FUNCTION(execCanSprint); \
+	DECLARE_FUNCTION(execHasMovementInput); \
+	DECLARE_FUNCTION(execSetSprinting); \
+	DECLARE_FUNCTION(execDoSprintEnd); \
+	DECLARE_FUNCTION(execDoSprintStart); \
 	DECLARE_FUNCTION(execDoJumpEnd); \
 	DECLARE_FUNCTION(execDoJumpStart); \
 	DECLARE_FUNCTION(execDoLook); \

@@ -214,9 +214,7 @@
             "e:\\unreal engine\\ue_5.7\\engine\\source\\runtime\\moviescene\\public\\entitysystem\\relativeptr.h",
             "e:\\unreal engine\\ue_5.7\\engine\\source\\runtime\\moviescene\\public\\evaluation\\moviescenepreanimatedstate.h",
             "e:\\unreal engine\\ue_5.7\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\userwidget.generated.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingui.generated.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\protocolriftarena\\permoduleinline.gen.cpp",
-            "e:\\unreal engine\\ue_5.7\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl"
+            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingui.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

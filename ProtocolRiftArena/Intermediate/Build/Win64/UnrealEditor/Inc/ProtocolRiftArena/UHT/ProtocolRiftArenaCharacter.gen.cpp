@@ -12,6 +12,7 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 void EmptyLinkFunctionForGeneratedCodeProtocolRiftArenaCharacter() {}
 
 // ********** Begin Cross Module References ********************************************************
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector2D();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
@@ -20,6 +21,140 @@ PROTOCOLRIFTARENA_API UClass* Z_Construct_UClass_AProtocolRiftArenaCharacter();
 PROTOCOLRIFTARENA_API UClass* Z_Construct_UClass_AProtocolRiftArenaCharacter_NoRegister();
 UPackage* Z_Construct_UPackage__Script_ProtocolRiftArena();
 // ********** End Cross Module References **********************************************************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function CanSprint ***************************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics
+{
+	struct ProtocolRiftArenaCharacter_eventCanSprint_Parms
+	{
+		bool ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Movement|Sprint" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** Returns true if the character is allowed to sprint right now */" },
+#endif
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Returns true if the character is allowed to sprint right now" },
+#endif
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function CanSprint constinit property declarations *****************************
+	static void NewProp_ReturnValue_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function CanSprint constinit property declarations *******************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function CanSprint Property Definitions ****************************************
+void Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+{
+	((ProtocolRiftArenaCharacter_eventCanSprint_Parms*)Obj)->ReturnValue = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ProtocolRiftArenaCharacter_eventCanSprint_Parms), &Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::PropPointers) < 2048);
+// ********** End Function CanSprint Property Definitions ******************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "CanSprint", 	Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::ProtocolRiftArenaCharacter_eventCanSprint_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::ProtocolRiftArenaCharacter_eventCanSprint_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execCanSprint)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(bool*)Z_Param__Result=P_THIS->CanSprint();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function CanSprint *****************************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function DoCrouchEnd *************************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchEnd_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Movement|Crouch" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function DoCrouchEnd constinit property declarations ***************************
+// ********** End Function DoCrouchEnd constinit property declarations *****************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchEnd_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "DoCrouchEnd", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchEnd_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchEnd_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchEnd()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchEnd_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execDoCrouchEnd)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->DoCrouchEnd();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function DoCrouchEnd ***************************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function DoCrouchStart ***********************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchStart_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Movement|Crouch" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function DoCrouchStart constinit property declarations *************************
+// ********** End Function DoCrouchStart constinit property declarations ***************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchStart_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "DoCrouchStart", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchStart_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchStart_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchStart()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchStart_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execDoCrouchStart)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->DoCrouchStart();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function DoCrouchStart *************************
 
 // ********** Begin Class AProtocolRiftArenaCharacter Function DoJumpEnd ***************************
 struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoJumpEnd_Statics
@@ -231,6 +366,275 @@ DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execDoMove)
 }
 // ********** End Class AProtocolRiftArenaCharacter Function DoMove ********************************
 
+// ********** Begin Class AProtocolRiftArenaCharacter Function DoSprintEnd *************************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintEnd_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function DoSprintEnd constinit property declarations ***************************
+// ********** End Function DoSprintEnd constinit property declarations *****************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintEnd_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "DoSprintEnd", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintEnd_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintEnd_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintEnd()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintEnd_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execDoSprintEnd)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->DoSprintEnd();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function DoSprintEnd ***************************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function DoSprintStart ***********************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintStart_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function DoSprintStart constinit property declarations *************************
+// ********** End Function DoSprintStart constinit property declarations ***************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintStart_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "DoSprintStart", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintStart_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintStart_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintStart()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintStart_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execDoSprintStart)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->DoSprintStart();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function DoSprintStart *************************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function HasMovementInput ********************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics
+{
+	struct ProtocolRiftArenaCharacter_eventHasMovementInput_Parms
+	{
+		bool ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Movement" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** Returns true if the character is currently receiving movement input */" },
+#endif
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Returns true if the character is currently receiving movement input" },
+#endif
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function HasMovementInput constinit property declarations **********************
+	static void NewProp_ReturnValue_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function HasMovementInput constinit property declarations ************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function HasMovementInput Property Definitions *********************************
+void Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+{
+	((ProtocolRiftArenaCharacter_eventHasMovementInput_Parms*)Obj)->ReturnValue = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ProtocolRiftArenaCharacter_eventHasMovementInput_Parms), &Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::PropPointers) < 2048);
+// ********** End Function HasMovementInput Property Definitions ***********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "HasMovementInput", 	Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::ProtocolRiftArenaCharacter_eventHasMovementInput_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::ProtocolRiftArenaCharacter_eventHasMovementInput_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execHasMovementInput)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(bool*)Z_Param__Result=P_THIS->HasMovementInput();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function HasMovementInput **********************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function RefreshSprintState ******************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshSprintState_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Movement|Sprint" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** Re-evaluates whether the character should currently be sprinting */" },
+#endif
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Re-evaluates whether the character should currently be sprinting" },
+#endif
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function RefreshSprintState constinit property declarations ********************
+// ********** End Function RefreshSprintState constinit property declarations **********************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshSprintState_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "RefreshSprintState", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshSprintState_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshSprintState_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshSprintState()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshSprintState_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execRefreshSprintState)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->RefreshSprintState();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function RefreshSprintState ********************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function SetSprinting ************************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics
+{
+	struct ProtocolRiftArenaCharacter_eventSetSprinting_Parms
+	{
+		bool bNewSprinting;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Movement | Sprint" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function SetSprinting constinit property declarations **************************
+	static void NewProp_bNewSprinting_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bNewSprinting;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetSprinting constinit property declarations ****************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function SetSprinting Property Definitions *************************************
+void Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::NewProp_bNewSprinting_SetBit(void* Obj)
+{
+	((ProtocolRiftArenaCharacter_eventSetSprinting_Parms*)Obj)->bNewSprinting = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::NewProp_bNewSprinting = { "bNewSprinting", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ProtocolRiftArenaCharacter_eventSetSprinting_Parms), &Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::NewProp_bNewSprinting_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::NewProp_bNewSprinting,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::PropPointers) < 2048);
+// ********** End Function SetSprinting Property Definitions ***************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "SetSprinting", 	Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::ProtocolRiftArenaCharacter_eventSetSprinting_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::ProtocolRiftArenaCharacter_eventSetSprinting_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execSetSprinting)
+{
+	P_GET_UBOOL(Z_Param_bNewSprinting);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->SetSprinting(Z_Param_bNewSprinting);
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function SetSprinting **************************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function UpdateMovementSpeed *****************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Movement" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function UpdateMovementSpeed constinit property declarations *******************
+// ********** End Function UpdateMovementSpeed constinit property declarations *********************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "UpdateMovementSpeed", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execUpdateMovementSpeed)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->UpdateMovementSpeed();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function UpdateMovementSpeed *******************
+
 // ********** Begin Class AProtocolRiftArenaCharacter **********************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_AProtocolRiftArenaCharacter;
 UClass* AProtocolRiftArenaCharacter::GetPrivateStaticClass()
@@ -339,6 +743,52 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ "ToolTip", "Mouse Look Input Action" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SprintAction_MetaData[] = {
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchAction_MetaData[] = {
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WalkSpeed_MetaData[] = {
+		{ "Category", "Movement" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** Movement System */" },
+#endif
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Movement System" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SprintSpeed_MetaData[] = {
+		{ "Category", "Movement|Sprint" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchSpeed_MetaData[] = {
+		{ "Category", "Movement|Crouch" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bIsSprinting_MetaData[] = {
+		{ "Category", "Movement|Sprint" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bWantsToSprint_MetaData[] = {
+		{ "Category", "Movement|Sprint" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_LastMovementInput_MetaData[] = {
+		{ "Category", "Movement|Sprint" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchCameraZOffset_MetaData[] = {
+		{ "Category", "Movement|Crouch" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchCameraInterpSpeed_MetaData[] = {
+		{ "Category", "Movement|Crouch" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class AProtocolRiftArenaCharacter constinit property declarations **************
@@ -348,20 +798,50 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LookAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MouseLookAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_SprintAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_CrouchAction;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_WalkSpeed;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_SprintSpeed;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_CrouchSpeed;
+	static void NewProp_bIsSprinting_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsSprinting;
+	static void NewProp_bWantsToSprint_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bWantsToSprint;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_LastMovementInput;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_CrouchCameraZOffset;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_CrouchCameraInterpSpeed;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AProtocolRiftArenaCharacter constinit property declarations ****************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
+		{ .NameUTF8 = UTF8TEXT("CanSprint"), .Pointer = &AProtocolRiftArenaCharacter::execCanSprint },
+		{ .NameUTF8 = UTF8TEXT("DoCrouchEnd"), .Pointer = &AProtocolRiftArenaCharacter::execDoCrouchEnd },
+		{ .NameUTF8 = UTF8TEXT("DoCrouchStart"), .Pointer = &AProtocolRiftArenaCharacter::execDoCrouchStart },
 		{ .NameUTF8 = UTF8TEXT("DoJumpEnd"), .Pointer = &AProtocolRiftArenaCharacter::execDoJumpEnd },
 		{ .NameUTF8 = UTF8TEXT("DoJumpStart"), .Pointer = &AProtocolRiftArenaCharacter::execDoJumpStart },
 		{ .NameUTF8 = UTF8TEXT("DoLook"), .Pointer = &AProtocolRiftArenaCharacter::execDoLook },
 		{ .NameUTF8 = UTF8TEXT("DoMove"), .Pointer = &AProtocolRiftArenaCharacter::execDoMove },
+		{ .NameUTF8 = UTF8TEXT("DoSprintEnd"), .Pointer = &AProtocolRiftArenaCharacter::execDoSprintEnd },
+		{ .NameUTF8 = UTF8TEXT("DoSprintStart"), .Pointer = &AProtocolRiftArenaCharacter::execDoSprintStart },
+		{ .NameUTF8 = UTF8TEXT("HasMovementInput"), .Pointer = &AProtocolRiftArenaCharacter::execHasMovementInput },
+		{ .NameUTF8 = UTF8TEXT("RefreshSprintState"), .Pointer = &AProtocolRiftArenaCharacter::execRefreshSprintState },
+		{ .NameUTF8 = UTF8TEXT("SetSprinting"), .Pointer = &AProtocolRiftArenaCharacter::execSetSprinting },
+		{ .NameUTF8 = UTF8TEXT("UpdateMovementSpeed"), .Pointer = &AProtocolRiftArenaCharacter::execUpdateMovementSpeed },
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_CanSprint, "CanSprint" }, // 1513038061
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchEnd, "DoCrouchEnd" }, // 1454415708
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchStart, "DoCrouchStart" }, // 2875269798
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoJumpEnd, "DoJumpEnd" }, // 1013457243
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoJumpStart, "DoJumpStart" }, // 3599227473
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoLook, "DoLook" }, // 4018500703
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoMove, "DoMove" }, // 3914857217
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintEnd, "DoSprintEnd" }, // 327933395
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintStart, "DoSprintStart" }, // 3440152050
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput, "HasMovementInput" }, // 3008818497
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshSprintState, "RefreshSprintState" }, // 2284821106
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting, "SetSprinting" }, // 2351677577
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed, "UpdateMovementSpeed" }, // 3162148568
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -377,6 +857,24 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftA
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_MoveAction = { "MoveAction", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, MoveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveAction_MetaData), NewProp_MoveAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_LookAction = { "LookAction", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, LookAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LookAction_MetaData), NewProp_LookAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_MouseLookAction = { "MouseLookAction", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, MouseLookAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MouseLookAction_MetaData), NewProp_MouseLookAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_SprintAction = { "SprintAction", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, SprintAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SprintAction_MetaData), NewProp_SprintAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchAction = { "CrouchAction", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CrouchAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchAction_MetaData), NewProp_CrouchAction_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_WalkSpeed = { "WalkSpeed", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, WalkSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WalkSpeed_MetaData), NewProp_WalkSpeed_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_SprintSpeed = { "SprintSpeed", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, SprintSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SprintSpeed_MetaData), NewProp_SprintSpeed_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchSpeed = { "CrouchSpeed", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CrouchSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchSpeed_MetaData), NewProp_CrouchSpeed_MetaData) };
+void Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsSprinting_SetBit(void* Obj)
+{
+	((AProtocolRiftArenaCharacter*)Obj)->bIsSprinting = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsSprinting = { "bIsSprinting", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AProtocolRiftArenaCharacter), &Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsSprinting_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bIsSprinting_MetaData), NewProp_bIsSprinting_MetaData) };
+void Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bWantsToSprint_SetBit(void* Obj)
+{
+	((AProtocolRiftArenaCharacter*)Obj)->bWantsToSprint = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bWantsToSprint = { "bWantsToSprint", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AProtocolRiftArenaCharacter), &Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bWantsToSprint_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bWantsToSprint_MetaData), NewProp_bWantsToSprint_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_LastMovementInput = { "LastMovementInput", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, LastMovementInput), Z_Construct_UScriptStruct_FVector2D, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LastMovementInput_MetaData), NewProp_LastMovementInput_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchCameraZOffset = { "CrouchCameraZOffset", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CrouchCameraZOffset), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchCameraZOffset_MetaData), NewProp_CrouchCameraZOffset_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchCameraInterpSpeed = { "CrouchCameraInterpSpeed", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CrouchCameraInterpSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchCameraInterpSpeed_MetaData), NewProp_CrouchCameraInterpSpeed_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraBoom,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_FollowCamera,
@@ -384,6 +882,16 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocol
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_MoveAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_LookAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_MouseLookAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_SprintAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_WalkSpeed,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_SprintSpeed,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchSpeed,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsSprinting,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bWantsToSprint,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_LastMovementInput,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchCameraZOffset,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchCameraInterpSpeed,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers) < 2048);
 // ********** End Class AProtocolRiftArenaCharacter Property Definitions ***************************
@@ -428,10 +936,10 @@ AProtocolRiftArenaCharacter::~AProtocolRiftArenaCharacter() {}
 struct Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 2181383128U) },
+		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 2797713486U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_1638961604{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_1912966403{
 	TEXT("/Script/ProtocolRiftArena"),
 	Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo),
 	nullptr, 0,
