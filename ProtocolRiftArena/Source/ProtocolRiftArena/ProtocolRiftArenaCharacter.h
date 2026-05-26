@@ -10,6 +10,7 @@
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
+class USceneComponent;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -30,7 +31,10 @@ class AProtocolRiftArenaCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
-	
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
+	USceneComponent* CameraRoot;
+
 protected:
 
 	/** Jump Input Action */
@@ -68,10 +72,15 @@ protected:
 	bool bWantsToSprint = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Sprint")
 	FVector2D LastMovementInput = FVector2D::ZeroVector;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement|Crouch")
-	float CrouchCameraZOffset = -45.f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement|Crouch")
-	float CrouchCameraInterpSpeed = 15.f;
+	/** World-space camera root offset while standing  */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera|Root")
+	FVector StandingCameraRootOffset = FVector(0.f, 0.f, 80.0f);
+	/** World-space camera root offset while crouching */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera|Root")
+	FVector CrouchingCameraRootOffset = FVector(0.f, 0.f, 35.0f);
+	/** How fast the camera root follows its desired position */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera|Root")
+	float CameraRootInterpSpeed = 10.0f;
 
 public:
 
@@ -84,6 +93,12 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode) override;
+
+	/* Called when the character begins play */
+	virtual void BeginPlay() override;
+
+	/* Called every frame */
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 
@@ -101,6 +116,9 @@ protected:
 
 	/** Called when the character stops crouching */
 	virtual void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
+
+	/** Updates the camera root position */
+	void UpdateCameraRoot(float DeltaTime);
 
 public:
 

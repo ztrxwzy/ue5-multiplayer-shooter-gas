@@ -44,10 +44,10 @@
 			"SideScrollingPickup.gen.cpp.obj",
 			"SideScrollingPlayerController.gen.cpp.obj",
 			"SideScrollingSoftPlatform.gen.cpp.obj",
-			"SideScrollingStateTreeUtility.gen.cpp.obj",
-			"SideScrollingUI.gen.cpp.obj"
+			"SideScrollingStateTreeUtility.gen.cpp.obj"
 		],
 		"Module.ProtocolRiftArena.3.cpp.obj": [
+			"SideScrollingUI.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"ProtocolRiftArena.cpp.obj",
 			"ProtocolRiftArenaGameMode.cpp.obj",

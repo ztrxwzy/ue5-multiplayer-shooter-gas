@@ -11,9 +11,13 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "ProtocolRiftArena.h"
+#include "Components/SceneComponent.h"
 
 AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 {
+
+	PrimaryActorTick.bCanEverTick = true;
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -37,9 +41,13 @@ AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 	GetCharacterMovement()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	GetCharacterMovement()->MaxWalkSpeedCrouched = CrouchSpeed;
 
+	// Create a camera root component
+	CameraRoot = CreateDefaultSubobject<USceneComponent>(TEXT("CameraRoot"));
+	CameraRoot->SetupAttachment(RootComponent);
+
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
+	CameraBoom->SetupAttachment(CameraRoot);
 	CameraBoom->TargetArmLength = 400.0f;
 	CameraBoom->bUsePawnControlRotation = true;
 
@@ -81,6 +89,23 @@ void AProtocolRiftArenaCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 	{
 		UE_LOG(LogProtocolRiftArena, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
+}
+
+void AProtocolRiftArenaCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if(CameraRoot)
+	{
+		CameraRoot->SetUsingAbsoluteLocation(true);
+		CameraRoot->SetWorldLocation(GetActorLocation() + StandingCameraRootOffset);
+	}
+}
+
+void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	UpdateCameraRoot(DeltaTime);
 }
 
 void AProtocolRiftArenaCharacter::Move(const FInputActionValue& Value)
@@ -257,6 +282,8 @@ void AProtocolRiftArenaCharacter::OnStartCrouch(float HalfHeightAdjust, float Sc
 	Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 	SetSprinting(false);
 	UpdateMovementSpeed();
+
+
 }
 
 void AProtocolRiftArenaCharacter::OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
@@ -264,4 +291,19 @@ void AProtocolRiftArenaCharacter::OnEndCrouch(float HalfHeightAdjust, float Scal
 	Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 	RefreshSprintState();
 	UpdateMovementSpeed();
-}	
+}
+
+void AProtocolRiftArenaCharacter::UpdateCameraRoot(float DeltaTime)
+{
+	if (!CameraRoot)
+	{
+		return;
+	}
+	
+	const FVector DesiredOffset = bIsCrouched ? CrouchingCameraRootOffset : StandingCameraRootOffset;
+	const FVector TargetLocation = GetActorLocation() + DesiredOffset;
+
+	const FVector NewLocation = FMath::VInterpTo(CameraRoot->GetComponentLocation(), TargetLocation, DeltaTime, CameraRootInterpSpeed);
+	CameraRoot->SetWorldLocation(NewLocation);
+
+}

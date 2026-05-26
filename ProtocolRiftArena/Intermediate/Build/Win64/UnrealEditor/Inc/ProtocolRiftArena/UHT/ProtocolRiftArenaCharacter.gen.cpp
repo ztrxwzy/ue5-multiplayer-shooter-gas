@@ -12,9 +12,11 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 void EmptyLinkFunctionForGeneratedCodeProtocolRiftArenaCharacter() {}
 
 // ********** Begin Cross Module References ********************************************************
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector2D();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 PROTOCOLRIFTARENA_API UClass* Z_Construct_UClass_AProtocolRiftArenaCharacter();
@@ -703,6 +705,12 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ "ToolTip", "Follow camera" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CameraRoot_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Components" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_JumpAction_MetaData[] = {
 		{ "Category", "Input" },
 #if !UE_BUILD_SHIPPING
@@ -781,19 +789,42 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ "Category", "Movement|Sprint" },
 		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchCameraZOffset_MetaData[] = {
-		{ "Category", "Movement|Crouch" },
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_StandingCameraRootOffset_MetaData[] = {
+		{ "Category", "Camera|Root" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** World-space camera root offset while standing  */" },
+#endif
 		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "World-space camera root offset while standing" },
+#endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchCameraInterpSpeed_MetaData[] = {
-		{ "Category", "Movement|Crouch" },
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchingCameraRootOffset_MetaData[] = {
+		{ "Category", "Camera|Root" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** World-space camera root offset while crouching */" },
+#endif
 		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "World-space camera root offset while crouching" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CameraRootInterpSpeed_MetaData[] = {
+		{ "Category", "Camera|Root" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** How fast the camera root follows its desired position */" },
+#endif
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "How fast the camera root follows its desired position" },
+#endif
 	};
 #endif // WITH_METADATA
 
 // ********** Begin Class AProtocolRiftArenaCharacter constinit property declarations **************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_CameraBoom;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FollowCamera;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_CameraRoot;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_JumpAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LookAction;
@@ -808,8 +839,9 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 	static void NewProp_bWantsToSprint_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bWantsToSprint;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_LastMovementInput;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_CrouchCameraZOffset;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_CrouchCameraInterpSpeed;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_StandingCameraRootOffset;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_CrouchingCameraRootOffset;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_CameraRootInterpSpeed;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AProtocolRiftArenaCharacter constinit property declarations ****************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
@@ -853,6 +885,7 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 // ********** Begin Class AProtocolRiftArenaCharacter Property Definitions *************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraBoom = { "CameraBoom", nullptr, (EPropertyFlags)0x00400000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CameraBoom), Z_Construct_UClass_USpringArmComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CameraBoom_MetaData), NewProp_CameraBoom_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_FollowCamera = { "FollowCamera", nullptr, (EPropertyFlags)0x00400000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, FollowCamera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FollowCamera_MetaData), NewProp_FollowCamera_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraRoot = { "CameraRoot", nullptr, (EPropertyFlags)0x00400000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CameraRoot), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CameraRoot_MetaData), NewProp_CameraRoot_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_JumpAction = { "JumpAction", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, JumpAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JumpAction_MetaData), NewProp_JumpAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_MoveAction = { "MoveAction", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, MoveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveAction_MetaData), NewProp_MoveAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_LookAction = { "LookAction", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, LookAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LookAction_MetaData), NewProp_LookAction_MetaData) };
@@ -873,11 +906,13 @@ void Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bWantsToSpr
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bWantsToSprint = { "bWantsToSprint", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AProtocolRiftArenaCharacter), &Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bWantsToSprint_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bWantsToSprint_MetaData), NewProp_bWantsToSprint_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_LastMovementInput = { "LastMovementInput", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, LastMovementInput), Z_Construct_UScriptStruct_FVector2D, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LastMovementInput_MetaData), NewProp_LastMovementInput_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchCameraZOffset = { "CrouchCameraZOffset", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CrouchCameraZOffset), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchCameraZOffset_MetaData), NewProp_CrouchCameraZOffset_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchCameraInterpSpeed = { "CrouchCameraInterpSpeed", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CrouchCameraInterpSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchCameraInterpSpeed_MetaData), NewProp_CrouchCameraInterpSpeed_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_StandingCameraRootOffset = { "StandingCameraRootOffset", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, StandingCameraRootOffset), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_StandingCameraRootOffset_MetaData), NewProp_StandingCameraRootOffset_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchingCameraRootOffset = { "CrouchingCameraRootOffset", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CrouchingCameraRootOffset), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchingCameraRootOffset_MetaData), NewProp_CrouchingCameraRootOffset_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraRootInterpSpeed = { "CameraRootInterpSpeed", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CameraRootInterpSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CameraRootInterpSpeed_MetaData), NewProp_CameraRootInterpSpeed_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraBoom,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_FollowCamera,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraRoot,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_JumpAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_MoveAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_LookAction,
@@ -890,8 +925,9 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocol
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsSprinting,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bWantsToSprint,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_LastMovementInput,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchCameraZOffset,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchCameraInterpSpeed,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_StandingCameraRootOffset,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchingCameraRootOffset,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraRootInterpSpeed,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers) < 2048);
 // ********** End Class AProtocolRiftArenaCharacter Property Definitions ***************************
@@ -936,10 +972,10 @@ AProtocolRiftArenaCharacter::~AProtocolRiftArenaCharacter() {}
 struct Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 2797713486U) },
+		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 3391278467U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_1912966403{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_3056777933{
 	TEXT("/Script/ProtocolRiftArena"),
 	Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo),
 	nullptr, 0,

@@ -20,4 +20,3 @@
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingPlayerController.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingSoftPlatform.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingStateTreeUtility.gen.cpp"
-#include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingUI.gen.cpp"
