@@ -129,6 +129,12 @@
     <Filter Include="Source\ProtocolRiftArena">
       <UniqueIdentifier>{7E0DCA2D-3147-3FEB-95C0-016770F6F402}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\ProtocolRiftArena\PRAWeaponBase.cpp">
+      <Filter>Source\ProtocolRiftArena</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ProtocolRiftArena\PRAWeaponBase.h">
+      <Filter>Source\ProtocolRiftArena</Filter>
+    </ClInclude>
     <None Include="..\..\Source\ProtocolRiftArena\ProtocolRiftArena.Build.cs">
       <Filter>Source\ProtocolRiftArena</Filter>
     </None>

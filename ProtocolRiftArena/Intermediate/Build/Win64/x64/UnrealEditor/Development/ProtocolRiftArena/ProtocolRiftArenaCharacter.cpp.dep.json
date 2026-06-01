@@ -71,7 +71,9 @@
             "e:\\unreal engine\\ue_5.7\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\enhancedplayerinput.generated.h",
             "e:\\unreal engine\\ue_5.7\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\enhancedinputsubsysteminterface.generated.h",
             "e:\\unreal engine\\ue_5.7\\engine\\plugins\\enhancedinput\\intermediate\\build\\win64\\unrealeditor\\inc\\enhancedinput\\uht\\enhancedinputsubsystems.generated.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\protocolriftarena.h"
+            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\protocolriftarena.h",
+            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\praweaponbase.h",
+            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\praweaponbase.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

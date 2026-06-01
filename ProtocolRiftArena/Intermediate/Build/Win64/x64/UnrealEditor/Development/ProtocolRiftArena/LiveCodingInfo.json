@@ -29,6 +29,7 @@
 			"PlatformingCharacter.gen.cpp.obj",
 			"PlatformingGameMode.gen.cpp.obj",
 			"PlatformingPlayerController.gen.cpp.obj",
+			"PRAWeaponBase.gen.cpp.obj",
 			"ProtocolRiftArena.init.gen.cpp.obj",
 			"ProtocolRiftArenaCharacter.gen.cpp.obj",
 			"ProtocolRiftArenaGameMode.gen.cpp.obj",
@@ -41,12 +42,12 @@
 			"SideScrollingJumpPad.gen.cpp.obj",
 			"SideScrollingMovingPlatform.gen.cpp.obj",
 			"SideScrollingNPC.gen.cpp.obj",
-			"SideScrollingPickup.gen.cpp.obj",
-			"SideScrollingPlayerController.gen.cpp.obj",
-			"SideScrollingSoftPlatform.gen.cpp.obj",
-			"SideScrollingStateTreeUtility.gen.cpp.obj"
+			"SideScrollingPickup.gen.cpp.obj"
 		],
 		"Module.ProtocolRiftArena.3.cpp.obj": [
+			"SideScrollingPlayerController.gen.cpp.obj",
+			"SideScrollingSoftPlatform.gen.cpp.obj",
+			"SideScrollingStateTreeUtility.gen.cpp.obj",
 			"SideScrollingUI.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"ProtocolRiftArena.cpp.obj",
@@ -90,6 +91,7 @@
 			"SideScrollingGameMode.cpp.obj",
 			"SideScrollingPlayerController.cpp.obj",
 			"SideScrollingUI.cpp.obj",
+			"PRAWeaponBase.cpp.obj",
 			"ProtocolRiftArenaCharacter.cpp.obj"
 		]
 	}

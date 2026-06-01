@@ -571,6 +571,12 @@
     <None Include="..\..\ProtocolRiftArena.uproject"/>
     <None Include="..\..\Source\ProtocolRiftArena.Target.cs"/>
     <None Include="..\..\Source\ProtocolRiftArenaEditor.Target.cs"/>
+    <ClCompile Include="..\..\Source\ProtocolRiftArena\PRAWeaponBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ProtocolRiftArena\PRAWeaponBase.h"/>
     <None Include="..\..\Source\ProtocolRiftArena\ProtocolRiftArena.Build.cs"/>
     <ClCompile Include="..\..\Source\ProtocolRiftArena\ProtocolRiftArena.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>

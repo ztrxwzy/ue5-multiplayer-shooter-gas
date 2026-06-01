@@ -12,6 +12,7 @@ class UCameraComponent;
 class UInputAction;
 class USceneComponent;
 struct FInputActionValue;
+class APRAWeaponBase;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -25,39 +26,45 @@ class AProtocolRiftArenaCharacter : public ACharacter
 	GENERATED_BODY()
 
 	/** Camera boom positioning the camera behind the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* CameraRoot;
 
 protected:
 
 	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpAction;
 
 	/** Move Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MoveAction;
 
 	/** Look Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* LookAction;
 
 	/** Mouse Look Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MouseLookAction;
 
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* SprintAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* CrouchAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* AimAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* FireAction;
 
 	/** Movement System */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
@@ -81,6 +88,31 @@ protected:
 	/** How fast the camera root follows its desired position */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera|Root")
 	float CameraRootInterpSpeed = 10.0f;
+
+
+	//Aiming feature
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement|Aim")
+	float AimWalkSpeed = 300.0f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Aim")
+	bool bWantsToAim = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Aim")
+	bool bIsAiming = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Aim")
+	float AimPitch = 0.0f;
+	/** World-space camera root offset while aiming */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera|Root")
+	FVector AimingCameraRootOffset = FVector(0.f, 45.f, 75.f);
+	/** World-space camera root offset while crouch-aiming */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera|Root")
+	FVector CrouchAimCameraRootOffset = FVector(0.f, 45.f, 35.f);
+
+	//Weapon System
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	TSubclassOf<APRAWeaponBase> DefaultWeaponClass;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
+	APRAWeaponBase* CurrentWeapon = nullptr;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	FName WeaponAttachSocketName = TEXT("hand_rSocket");
 
 public:
 
@@ -119,6 +151,19 @@ protected:
 
 	/** Updates the camera root position */
 	void UpdateCameraRoot(float DeltaTime);
+
+	/** Returns the desired camera root offset based on current gameplay state */
+	FVector GetDesiredCameraRootOffset() const;
+
+	/** Spawns the default weapon for the character */
+	void SpawnDefaultWeapon();
+
+	/** Equips the specified weapon, attaching it to the character */
+	void EquipWeapon(APRAWeaponBase* WeaponToEquip);
+
+	void UpdateAimOffset(float DeltaTime);
+
+	void UpdateAimRotation(float DeltaTime);
 
 public:
 
@@ -164,6 +209,28 @@ public:
 	virtual void DoCrouchEnd();
 	UFUNCTION(BlueprintCallable, Category = "Movement")
 	virtual void UpdateMovementSpeed();
+
+	//Aiming
+	UFUNCTION(BlueprintCallable, Category = "Movement|Aim")
+	virtual void DoAimStart();
+	UFUNCTION(BlueprintCallable, Category = "Movement|Aim")
+	virtual void DoAimEnd();
+	UFUNCTION(BlueprintCallable, Category = "Movement|Aim")
+	virtual void SetAiming(bool bNewAiming);
+	UFUNCTION(BlueprintCallable, Category = "Movement|Aim")
+	virtual bool CanAim() const;
+	UFUNCTION(BlueprintCallable, Category = "Movement|Aim")
+	virtual void RefreshAimState();
+	UFUNCTION(BlueprintPure, Category = "Movement|Aim")
+	bool IsAiming() const { return bIsAiming; }
+	UFUNCTION(BlueprintPure, Category = "Movement|Aim")
+	float GetAimPitch() const { return AimPitch; }
+
+	//Weapon
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void DoFireStart();
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void DoFireEnd();
 public:
 
 	/** Returns CameraBoom subobject **/

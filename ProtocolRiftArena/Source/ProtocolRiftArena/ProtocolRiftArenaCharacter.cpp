@@ -12,6 +12,7 @@
 #include "InputActionValue.h"
 #include "ProtocolRiftArena.h"
 #include "Components/SceneComponent.h"
+#include "PRAWeaponBase.h"
 
 AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 {
@@ -84,6 +85,14 @@ void AProtocolRiftArenaCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 		//Crouch
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoCrouchStart);
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AProtocolRiftArenaCharacter::DoCrouchEnd);
+
+		//Aim
+		EnhancedInputComponent->BindAction(AimAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoAimStart);
+		EnhancedInputComponent->BindAction(AimAction, ETriggerEvent::Completed, this, &AProtocolRiftArenaCharacter::DoAimEnd);
+
+		//Fire
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoFireStart);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Completed, this, &AProtocolRiftArenaCharacter::DoFireEnd);
 	}
 	else
 	{
@@ -100,12 +109,16 @@ void AProtocolRiftArenaCharacter::BeginPlay()
 		CameraRoot->SetUsingAbsoluteLocation(true);
 		CameraRoot->SetWorldLocation(GetActorLocation() + StandingCameraRootOffset);
 	}
+
+	SpawnDefaultWeapon();
 }
 
 void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	UpdateCameraRoot(DeltaTime);
+	UpdateAimOffset(DeltaTime);
+	UpdateAimRotation(DeltaTime);
 }
 
 void AProtocolRiftArenaCharacter::Move(const FInputActionValue& Value)
@@ -209,6 +222,10 @@ bool AProtocolRiftArenaCharacter::CanSprint() const
 	{
 		return false;
 	}
+	if (bIsAiming)
+	{
+		return false;
+	}
 	const UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
 	if(!MovementComponent)
 	{
@@ -248,13 +265,16 @@ void AProtocolRiftArenaCharacter::UpdateMovementSpeed()
 	{
 		return;
 	}
-
 	if (bIsCrouched)
 	{
 		MovementComponent->MaxWalkSpeed = CrouchSpeed;
 		return;
 	}
-
+	if (bIsAiming)
+	{
+		MovementComponent->MaxWalkSpeed = AimWalkSpeed;
+		return;
+	}
 	if(bIsSprinting)
 	{
 		MovementComponent->MaxWalkSpeed = SprintSpeed;
@@ -300,10 +320,186 @@ void AProtocolRiftArenaCharacter::UpdateCameraRoot(float DeltaTime)
 		return;
 	}
 	
-	const FVector DesiredOffset = bIsCrouched ? CrouchingCameraRootOffset : StandingCameraRootOffset;
-	const FVector TargetLocation = GetActorLocation() + DesiredOffset;
+	const FVector DesiredOffset = GetDesiredCameraRootOffset();
+
+	const FRotator ControlRotation = GetControlRotation();
+	const FRotator YawRotation = FRotator(0.0f, ControlRotation.Yaw, 0.0f);
+
+	const FVector RotatedOffset = YawRotation.RotateVector(DesiredOffset);
+	const FVector TargetLocation = GetActorLocation() + RotatedOffset;
 
 	const FVector NewLocation = FMath::VInterpTo(CameraRoot->GetComponentLocation(), TargetLocation, DeltaTime, CameraRootInterpSpeed);
+
 	CameraRoot->SetWorldLocation(NewLocation);
 
+}
+
+void AProtocolRiftArenaCharacter::DoAimStart()
+{
+	bWantsToAim = true;
+	SetSprinting(false);
+	RefreshAimState();
+}
+
+void AProtocolRiftArenaCharacter::DoAimEnd()
+{
+	bWantsToAim = false;
+	RefreshAimState();
+	RefreshSprintState();
+}
+
+bool AProtocolRiftArenaCharacter::CanAim() const
+{
+	if (bIsSprinting)
+	{
+		return false;
+	}
+	const UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
+	if (!MovementComponent)
+	{
+		return false;
+	}
+	if (MovementComponent->IsFalling())
+	{
+		return false;
+	}
+	return true;
+}
+
+void AProtocolRiftArenaCharacter::RefreshAimState()
+{
+	const bool bShouldAim = bWantsToAim && CanAim();
+	SetAiming(bShouldAim);
+}
+
+void AProtocolRiftArenaCharacter::SetAiming(bool bNewAiming)
+{
+	if (bIsAiming == bNewAiming)
+	{
+		return;
+	}
+	bIsAiming = bNewAiming;
+	if (bIsAiming)
+	{
+		SetSprinting(false);
+	}
+	UpdateMovementSpeed();
+}
+
+FVector AProtocolRiftArenaCharacter::GetDesiredCameraRootOffset() const
+{
+	if(bIsAiming && bIsCrouched)
+	{
+		return CrouchAimCameraRootOffset;
+	}
+	if (bIsAiming)
+	{
+		return AimingCameraRootOffset;
+	}
+	if (bIsCrouched)
+	{
+		return CrouchingCameraRootOffset;
+	}
+	return StandingCameraRootOffset;
+}
+
+void AProtocolRiftArenaCharacter::SpawnDefaultWeapon()
+{
+	if (!DefaultWeaponClass)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DefaultWeaponClass is not set on %s. Please set it to a Blueprint subclass of PRAWeaponBase."), *GetNameSafe(this));
+		return;
+	}
+
+	UWorld* World = GetWorld();
+	if(!World)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Failed to get world on %s."), *GetNameSafe(this));
+		return;
+	}
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = this;
+	SpawnParams.Instigator = GetInstigator();
+
+	APRAWeaponBase* SpawnedWeapon = World->SpawnActor<APRAWeaponBase>(DefaultWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+	if (!SpawnedWeapon)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Failed to spawn default weapon for %s. Please ensure DefaultWeaponClass is set to a valid Blueprint subclass of PRAWeaponBase."), *GetNameSafe(this));
+		return;
+	}
+
+	EquipWeapon(SpawnedWeapon);
+}
+
+void AProtocolRiftArenaCharacter::EquipWeapon(APRAWeaponBase* NewWeapon)
+{
+	if (!NewWeapon)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attempted to equip a null weapon on %s."), *GetNameSafe(this));
+		return;
+	}
+	
+	CurrentWeapon = NewWeapon;
+
+	USkeletalMeshComponent* CharacterMesh = GetMesh();
+	if (!CharacterMesh)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Failed to get Mesh component on %s while trying to equip weapon."), *GetNameSafe(this));
+		return;
+	}
+
+	CurrentWeapon->AttachToComponent(CharacterMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttachSocketName);
+}
+
+void AProtocolRiftArenaCharacter::UpdateAimOffset(float DeltaTime)
+{
+	const FRotator ControlRotation = GetControlRotation();
+
+	float NormalizedPitch = ControlRotation.Pitch;
+	
+	if (NormalizedPitch > 180.0f)
+	{
+		NormalizedPitch -= 360.0f;
+	}
+
+	AimPitch = FMath::Clamp(NormalizedPitch, -90.0f, 90.0f);
+}
+
+void AProtocolRiftArenaCharacter::UpdateAimRotation(float DeltaTime)
+{
+	if (!bIsAiming)
+	{
+		return;
+	}
+	
+	if(!GetController())
+	{
+		return;
+	}
+
+	const FRotator ControlRotation = GetControlRotation();
+	const FRotator TargetRotation(0.0f, ControlRotation.Yaw, 0.0f);
+
+	SetActorRotation(TargetRotation);
+}
+
+void AProtocolRiftArenaCharacter::DoFireStart()
+{
+	if(!CurrentWeapon)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attempted to fire weapon while no weapon is equipped on %s."), *GetNameSafe(this));
+		return;
+	}
+	CurrentWeapon->StartFire();
+}
+
+void AProtocolRiftArenaCharacter::DoFireEnd()
+{
+	if(!CurrentWeapon)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attempted to stop firing weapon while no weapon is equipped on %s."), *GetNameSafe(this));
+		return;
+	}
+	CurrentWeapon->StopFire();
 }
