@@ -1,9 +1,8 @@
-[400:28804:0531/232125.021:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
-[400:28804:0531/232125.091:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
-[6044:27864:0531/232130.081:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-79EF702CDD78AC70FF6795343446DC0E will be ignored
-[400:2708:0531/232131.951:ERROR:cast_crl.cc(443)] CRL - Verification failed.
-[400:2708:0531/232132.192:ERROR:cast_crl.cc(443)] CRL - Verification failed.
-[400:28804:0531/232134.767:ERROR:device_event_log_impl.cc(196)] [23:21:34.760] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
-[400:28804:0531/232708.958:ERROR:device_event_log_impl.cc(196)] [23:27:08.635] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
-[400:2708:0531/232710.213:ERROR:cast_crl.cc(443)] CRL - Verification failed.
-[400:28804:0531/233403.983:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.
+[21748:10560:0602/100418.030:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[21748:10560:0602/100423.356:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[21748:10560:0602/100455.808:ERROR:device_event_log_impl.cc(196)] [10:04:54.818] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[1176:10504:0602/100456.182:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-9A8062C48A711B54FE98167D91A9EBD9 will be ignored
+[21748:24444:0602/100458.795:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[21748:10560:0602/102812.451:ERROR:device_event_log_impl.cc(196)] [10:28:12.161] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[21748:24444:0602/102847.436:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[21748:10560:0602/103029.337:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.

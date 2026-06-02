@@ -18,6 +18,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 // ********** Begin Class AProtocolRiftArenaCharacter **********************************************
 #define FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
+	virtual void ServerSetWantsToAim_Implementation(bool bNewAiming); \
+	DECLARE_FUNCTION(execServerSetWantsToAim); \
+	DECLARE_FUNCTION(execOnRep_IsAiming); \
+	DECLARE_FUNCTION(execOnRep_CurrentWeapon); \
 	DECLARE_FUNCTION(execDoFireEnd); \
 	DECLARE_FUNCTION(execDoFireStart); \
 	DECLARE_FUNCTION(execGetAimPitch); \
@@ -42,6 +46,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	DECLARE_FUNCTION(execDoMove);
 
 
+#define FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_26_CALLBACK_WRAPPERS
 struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics;
 PROTOCOLRIFTARENA_API UClass* Z_Construct_UClass_AProtocolRiftArenaCharacter_NoRegister();
 
@@ -53,7 +58,14 @@ private: \
 	friend PROTOCOLRIFTARENA_API UClass* ::Z_Construct_UClass_AProtocolRiftArenaCharacter_NoRegister(); \
 public: \
 	DECLARE_CLASS2(AProtocolRiftArenaCharacter, ACharacter, COMPILED_IN_FLAGS(CLASS_Abstract | CLASS_Config), CASTCLASS_None, TEXT("/Script/ProtocolRiftArena"), Z_Construct_UClass_AProtocolRiftArenaCharacter_NoRegister) \
-	DECLARE_SERIALIZER(AProtocolRiftArenaCharacter)
+	DECLARE_SERIALIZER(AProtocolRiftArenaCharacter) \
+	enum class ENetFields_Private : uint16 \
+	{ \
+		NETFIELD_REP_START=(uint16)((int32)Super::ENetFields_Private::NETFIELD_REP_END + (int32)1), \
+		bIsAiming=NETFIELD_REP_START, \
+		CurrentWeapon, \
+		NETFIELD_REP_END=CurrentWeapon	}; \
+	DECLARE_VALIDATE_GENERATED_REP_ENUMS(NO_API)
 
 
 #define FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_26_ENHANCED_CONSTRUCTORS \
@@ -71,6 +83,7 @@ public: \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
 	FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_26_CALLBACK_WRAPPERS \
 	FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_26_INCLASS_NO_PURE_DECLS \
 	FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_26_ENHANCED_CONSTRUCTORS \
 private: \

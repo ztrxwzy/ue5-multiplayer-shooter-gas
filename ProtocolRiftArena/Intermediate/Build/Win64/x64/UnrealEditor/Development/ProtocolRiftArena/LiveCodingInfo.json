@@ -41,10 +41,10 @@
 			"SideScrollingInteractable.gen.cpp.obj",
 			"SideScrollingJumpPad.gen.cpp.obj",
 			"SideScrollingMovingPlatform.gen.cpp.obj",
-			"SideScrollingNPC.gen.cpp.obj",
-			"SideScrollingPickup.gen.cpp.obj"
+			"SideScrollingNPC.gen.cpp.obj"
 		],
 		"Module.ProtocolRiftArena.3.cpp.obj": [
+			"SideScrollingPickup.gen.cpp.obj",
 			"SideScrollingPlayerController.gen.cpp.obj",
 			"SideScrollingSoftPlatform.gen.cpp.obj",
 			"SideScrollingStateTreeUtility.gen.cpp.obj",

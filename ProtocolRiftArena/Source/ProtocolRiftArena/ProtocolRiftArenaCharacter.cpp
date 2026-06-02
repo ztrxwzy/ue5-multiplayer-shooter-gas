@@ -13,6 +13,7 @@
 #include "ProtocolRiftArena.h"
 #include "Components/SceneComponent.h"
 #include "PRAWeaponBase.h"
+#include "Net/UnrealNetwork.h"
 
 AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 {
@@ -110,7 +111,10 @@ void AProtocolRiftArenaCharacter::BeginPlay()
 		CameraRoot->SetWorldLocation(GetActorLocation() + StandingCameraRootOffset);
 	}
 
-	SpawnDefaultWeapon();
+	if(HasAuthority())
+	{
+		SpawnDefaultWeapon();
+	}
 }
 
 void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
@@ -339,6 +343,10 @@ void AProtocolRiftArenaCharacter::DoAimStart()
 	bWantsToAim = true;
 	SetSprinting(false);
 	RefreshAimState();
+	if(!HasAuthority())
+	{
+		ServerSetWantsToAim(true);
+	}
 }
 
 void AProtocolRiftArenaCharacter::DoAimEnd()
@@ -346,6 +354,10 @@ void AProtocolRiftArenaCharacter::DoAimEnd()
 	bWantsToAim = false;
 	RefreshAimState();
 	RefreshSprintState();
+	if(!HasAuthority())
+	{
+		ServerSetWantsToAim(false);
+	}
 }
 
 bool AProtocolRiftArenaCharacter::CanAim() const
@@ -442,14 +454,7 @@ void AProtocolRiftArenaCharacter::EquipWeapon(APRAWeaponBase* NewWeapon)
 	
 	CurrentWeapon = NewWeapon;
 
-	USkeletalMeshComponent* CharacterMesh = GetMesh();
-	if (!CharacterMesh)
-	{
-		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Failed to get Mesh component on %s while trying to equip weapon."), *GetNameSafe(this));
-		return;
-	}
-
-	CurrentWeapon->AttachToComponent(CharacterMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttachSocketName);
+	AttachCurrentWeaponToMesh();
 }
 
 void AProtocolRiftArenaCharacter::UpdateAimOffset(float DeltaTime)
@@ -502,4 +507,53 @@ void AProtocolRiftArenaCharacter::DoFireEnd()
 		return;
 	}
 	CurrentWeapon->StopFire();
+}
+
+void AProtocolRiftArenaCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AProtocolRiftArenaCharacter, CurrentWeapon);
+	DOREPLIFETIME(AProtocolRiftArenaCharacter, bIsAiming);
+}
+
+void AProtocolRiftArenaCharacter::AttachCurrentWeaponToMesh()
+{
+	if (!CurrentWeapon)
+	{
+		return;
+	}
+
+	USkeletalMeshComponent* CharacterMesh = GetMesh();
+	if(!CharacterMesh)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Failed to get Mesh component on %s while trying to equip weapon."), *GetNameSafe(this));
+		return;
+	}
+	CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponAttachSocketName);
+}
+
+void AProtocolRiftArenaCharacter::OnRep_CurrentWeapon()
+{
+	AttachCurrentWeaponToMesh();
+}
+
+void AProtocolRiftArenaCharacter::ServerSetWantsToAim_Implementation(bool bNewWantsToAim)
+{
+	bWantsToAim = bNewWantsToAim;
+	if(bWantsToAim)
+	{
+		SetSprinting(false);
+	}
+
+	RefreshAimState();
+
+	if (!bWantsToAim)
+	{
+		RefreshSprintState();
+	}
+}
+
+void AProtocolRiftArenaCharacter::OnRep_IsAiming()
+{
+	UpdateMovementSpeed();
 }

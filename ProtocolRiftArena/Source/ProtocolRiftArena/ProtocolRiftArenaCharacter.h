@@ -95,7 +95,7 @@ protected:
 	float AimWalkSpeed = 300.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Aim")
 	bool bWantsToAim = false;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Aim")
+	UPROPERTY(VisibleAnywhere,ReplicatedUsing = OnRep_IsAiming ,BlueprintReadOnly, Category = "Movement|Aim")
 	bool bIsAiming = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Aim")
 	float AimPitch = 0.0f;
@@ -109,7 +109,7 @@ protected:
 	//Weapon System
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	TSubclassOf<APRAWeaponBase> DefaultWeaponClass;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,ReplicatedUsing = OnRep_CurrentWeapon ,Category = "Weapon")
 	APRAWeaponBase* CurrentWeapon = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	FName WeaponAttachSocketName = TEXT("hand_rSocket");
@@ -231,6 +231,14 @@ public:
 	void DoFireStart();
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void DoFireEnd();
+	UFUNCTION()
+	void OnRep_CurrentWeapon();
+	void AttachCurrentWeaponToMesh();
+	UFUNCTION()
+	void OnRep_IsAiming();
+	UFUNCTION(Server, Reliable)
+	void ServerSetWantsToAim(bool bNewAiming);
+
 public:
 
 	/** Returns CameraBoom subobject **/
@@ -238,5 +246,7 @@ public:
 
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };
 

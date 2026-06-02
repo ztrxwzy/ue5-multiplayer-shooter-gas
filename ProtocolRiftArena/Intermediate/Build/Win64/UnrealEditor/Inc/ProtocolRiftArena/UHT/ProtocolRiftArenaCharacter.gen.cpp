@@ -823,6 +823,76 @@ DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execIsAiming)
 }
 // ********** End Class AProtocolRiftArenaCharacter Function IsAiming ******************************
 
+// ********** Begin Class AProtocolRiftArenaCharacter Function OnRep_CurrentWeapon *****************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_CurrentWeapon_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function OnRep_CurrentWeapon constinit property declarations *******************
+// ********** End Function OnRep_CurrentWeapon constinit property declarations *********************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_CurrentWeapon_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "OnRep_CurrentWeapon", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_CurrentWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_CurrentWeapon_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_CurrentWeapon()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_CurrentWeapon_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execOnRep_CurrentWeapon)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnRep_CurrentWeapon();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function OnRep_CurrentWeapon *******************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function OnRep_IsAiming **********************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_IsAiming_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function OnRep_IsAiming constinit property declarations ************************
+// ********** End Function OnRep_IsAiming constinit property declarations **************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_IsAiming_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "OnRep_IsAiming", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_IsAiming_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_IsAiming_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_IsAiming()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_IsAiming_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execOnRep_IsAiming)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnRep_IsAiming();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function OnRep_IsAiming ************************
+
 // ********** Begin Class AProtocolRiftArenaCharacter Function RefreshAimState *********************
 struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshAimState_Statics
 {
@@ -900,6 +970,70 @@ DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execRefreshSprintState)
 	P_NATIVE_END;
 }
 // ********** End Class AProtocolRiftArenaCharacter Function RefreshSprintState ********************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function ServerSetWantsToAim *****************
+struct ProtocolRiftArenaCharacter_eventServerSetWantsToAim_Parms
+{
+	bool bNewAiming;
+};
+static FName NAME_AProtocolRiftArenaCharacter_ServerSetWantsToAim = FName(TEXT("ServerSetWantsToAim"));
+void AProtocolRiftArenaCharacter::ServerSetWantsToAim(bool bNewAiming)
+{
+	ProtocolRiftArenaCharacter_eventServerSetWantsToAim_Parms Parms;
+	Parms.bNewAiming=bNewAiming ? true : false;
+	UFunction* Func = FindFunctionChecked(NAME_AProtocolRiftArenaCharacter_ServerSetWantsToAim);
+	ProcessEvent(Func,&Parms);
+}
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function ServerSetWantsToAim constinit property declarations *******************
+	static void NewProp_bNewAiming_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bNewAiming;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function ServerSetWantsToAim constinit property declarations *********************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function ServerSetWantsToAim Property Definitions ******************************
+void Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::NewProp_bNewAiming_SetBit(void* Obj)
+{
+	((ProtocolRiftArenaCharacter_eventServerSetWantsToAim_Parms*)Obj)->bNewAiming = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::NewProp_bNewAiming = { "bNewAiming", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ProtocolRiftArenaCharacter_eventServerSetWantsToAim_Parms), &Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::NewProp_bNewAiming_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::NewProp_bNewAiming,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::PropPointers) < 2048);
+// ********** End Function ServerSetWantsToAim Property Definitions ********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "ServerSetWantsToAim", 	Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::PropPointers), 
+sizeof(ProtocolRiftArenaCharacter_eventServerSetWantsToAim_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(ProtocolRiftArenaCharacter_eventServerSetWantsToAim_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execServerSetWantsToAim)
+{
+	P_GET_UBOOL(Z_Param_bNewAiming);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->ServerSetWantsToAim_Implementation(Z_Param_bNewAiming);
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function ServerSetWantsToAim *******************
 
 // ********** Begin Class AProtocolRiftArenaCharacter Function SetAiming ***************************
 struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetAiming_Statics
@@ -1357,8 +1491,11 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ .NameUTF8 = UTF8TEXT("GetAimPitch"), .Pointer = &AProtocolRiftArenaCharacter::execGetAimPitch },
 		{ .NameUTF8 = UTF8TEXT("HasMovementInput"), .Pointer = &AProtocolRiftArenaCharacter::execHasMovementInput },
 		{ .NameUTF8 = UTF8TEXT("IsAiming"), .Pointer = &AProtocolRiftArenaCharacter::execIsAiming },
+		{ .NameUTF8 = UTF8TEXT("OnRep_CurrentWeapon"), .Pointer = &AProtocolRiftArenaCharacter::execOnRep_CurrentWeapon },
+		{ .NameUTF8 = UTF8TEXT("OnRep_IsAiming"), .Pointer = &AProtocolRiftArenaCharacter::execOnRep_IsAiming },
 		{ .NameUTF8 = UTF8TEXT("RefreshAimState"), .Pointer = &AProtocolRiftArenaCharacter::execRefreshAimState },
 		{ .NameUTF8 = UTF8TEXT("RefreshSprintState"), .Pointer = &AProtocolRiftArenaCharacter::execRefreshSprintState },
+		{ .NameUTF8 = UTF8TEXT("ServerSetWantsToAim"), .Pointer = &AProtocolRiftArenaCharacter::execServerSetWantsToAim },
 		{ .NameUTF8 = UTF8TEXT("SetAiming"), .Pointer = &AProtocolRiftArenaCharacter::execSetAiming },
 		{ .NameUTF8 = UTF8TEXT("SetSprinting"), .Pointer = &AProtocolRiftArenaCharacter::execSetSprinting },
 		{ .NameUTF8 = UTF8TEXT("UpdateMovementSpeed"), .Pointer = &AProtocolRiftArenaCharacter::execUpdateMovementSpeed },
@@ -1382,8 +1519,11 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAimPitch, "GetAimPitch" }, // 2542483398
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput, "HasMovementInput" }, // 3008818497
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_IsAiming, "IsAiming" }, // 1473698128
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_CurrentWeapon, "OnRep_CurrentWeapon" }, // 395287858
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_IsAiming, "OnRep_IsAiming" }, // 1517529686
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshAimState, "RefreshAimState" }, // 3532026327
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_RefreshSprintState, "RefreshSprintState" }, // 2284821106
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_ServerSetWantsToAim, "ServerSetWantsToAim" }, // 2008137245
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetAiming, "SetAiming" }, // 2426678054
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_SetSprinting, "SetSprinting" }, // 2351677577
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed, "UpdateMovementSpeed" }, // 3162148568
@@ -1434,12 +1574,12 @@ void Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsAiming_S
 {
 	((AProtocolRiftArenaCharacter*)Obj)->bIsAiming = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsAiming = { "bIsAiming", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AProtocolRiftArenaCharacter), &Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsAiming_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bIsAiming_MetaData), NewProp_bIsAiming_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsAiming = { "bIsAiming", "OnRep_IsAiming", (EPropertyFlags)0x0020080100020035, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AProtocolRiftArenaCharacter), &Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bIsAiming_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bIsAiming_MetaData), NewProp_bIsAiming_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_AimPitch = { "AimPitch", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, AimPitch), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AimPitch_MetaData), NewProp_AimPitch_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_AimingCameraRootOffset = { "AimingCameraRootOffset", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, AimingCameraRootOffset), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AimingCameraRootOffset_MetaData), NewProp_AimingCameraRootOffset_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CrouchAimCameraRootOffset = { "CrouchAimCameraRootOffset", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CrouchAimCameraRootOffset), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchAimCameraRootOffset_MetaData), NewProp_CrouchAimCameraRootOffset_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_DefaultWeaponClass = { "DefaultWeaponClass", nullptr, (EPropertyFlags)0x0024080000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, DefaultWeaponClass), Z_Construct_UClass_UClass_NoRegister, Z_Construct_UClass_APRAWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefaultWeaponClass_MetaData), NewProp_DefaultWeaponClass_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CurrentWeapon = { "CurrentWeapon", nullptr, (EPropertyFlags)0x0020080000020015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CurrentWeapon), Z_Construct_UClass_APRAWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentWeapon_MetaData), NewProp_CurrentWeapon_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CurrentWeapon = { "CurrentWeapon", "OnRep_CurrentWeapon", (EPropertyFlags)0x0020080100020035, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CurrentWeapon), Z_Construct_UClass_APRAWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentWeapon_MetaData), NewProp_CurrentWeapon_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_WeaponAttachSocketName = { "WeaponAttachSocketName", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, WeaponAttachSocketName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponAttachSocketName_MetaData), NewProp_WeaponAttachSocketName_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraBoom,
@@ -1507,6 +1647,17 @@ UClass* Z_Construct_UClass_AProtocolRiftArenaCharacter()
 	}
 	return Z_Registration_Info_UClass_AProtocolRiftArenaCharacter.OuterSingleton;
 }
+#if VALIDATE_CLASS_REPS
+void AProtocolRiftArenaCharacter::ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& ClassReps) const
+{
+	static FName Name_bIsAiming(TEXT("bIsAiming"));
+	static FName Name_CurrentWeapon(TEXT("CurrentWeapon"));
+	const bool bIsValid = true
+		&& Name_bIsAiming == ClassReps[(int32)ENetFields_Private::bIsAiming].Property->GetFName()
+		&& Name_CurrentWeapon == ClassReps[(int32)ENetFields_Private::CurrentWeapon].Property->GetFName();
+	checkf(bIsValid, TEXT("UHT Generated Rep Indices do not match runtime populated Rep Indices for properties in AProtocolRiftArenaCharacter"));
+}
+#endif
 DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, AProtocolRiftArenaCharacter);
 AProtocolRiftArenaCharacter::~AProtocolRiftArenaCharacter() {}
 // ********** End Class AProtocolRiftArenaCharacter ************************************************
@@ -1515,10 +1666,10 @@ AProtocolRiftArenaCharacter::~AProtocolRiftArenaCharacter() {}
 struct Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 753820645U) },
+		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 1571070134U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_2308498615{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_972779441{
 	TEXT("/Script/ProtocolRiftArena"),
 	Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo),
 	nullptr, 0,
