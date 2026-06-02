@@ -82,10 +82,7 @@
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingjumppad.generated.h",
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingmovingplatform.gen.cpp",
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\variant_sidescrolling\\gameplay\\sidescrollingmovingplatform.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingmovingplatform.generated.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingnpc.gen.cpp",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\variant_sidescrolling\\ai\\sidescrollingnpc.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingnpc.generated.h"
+            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingmovingplatform.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

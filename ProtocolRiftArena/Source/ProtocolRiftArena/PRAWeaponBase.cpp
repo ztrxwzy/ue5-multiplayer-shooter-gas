@@ -25,9 +25,50 @@ APRAWeaponBase::APRAWeaponBase()
 	MuzzlePoint->SetupAttachment(WeaponMesh);
 }
 
+void APRAWeaponBase::BeginPlay()
+{
+	Super::BeginPlay();
+
+	UE_LOG(LogTemp, Warning, TEXT("Weapon BeginPlay | Weapon: %s | Owner: %s | Authority: %d | Replicates: %d"),
+		*GetNameSafe(this),
+		*GetNameSafe(GetOwner()),
+		HasAuthority(),
+		GetIsReplicated());
+
+}
+
 void APRAWeaponBase::StartFire()
 {
-	Fire();
+	UE_LOG(LogTemp, Warning, TEXT("StartFire | Weapon: %s | Owner: %s | Authority: %d"),
+		*GetNameSafe(this),
+		*GetNameSafe(GetOwner()),
+		HasAuthority());
+
+	AProtocolRiftArenaCharacter* OwningCharacter = GetOwningCharacter();
+	if(!OwningCharacter)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: no owning character."));
+		return;
+	}
+	
+	UCameraComponent* Camera = OwningCharacter->GetFollowCamera();
+	if(!Camera)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: no follow camera."));
+		return;
+	}
+
+	const FVector TraceStart = Camera->GetComponentLocation();
+	const FVector TraceDirection = Camera->GetForwardVector();
+	if(HasAuthority())
+	{
+		FireTrace(TraceStart, TraceDirection);
+	}
+
+	if(!HasAuthority())
+	{
+		ServerStartFire(TraceStart, TraceDirection);
+	}
 }
 
 void APRAWeaponBase::StopFire()
@@ -52,7 +93,27 @@ void APRAWeaponBase::Fire()
 	}
 
 	const FVector TraceStart = Camera->GetComponentLocation();
-	const FVector TraceEnd = TraceStart + (Camera->GetForwardVector() * TraceRange);
+	const FVector TraceDistance = Camera->GetForwardVector();
+
+	FireTrace(TraceStart, TraceDistance);
+}
+
+void APRAWeaponBase::FireTrace(const FVector& TraceStart, const FVector& TraceDirection)
+{
+	if(!HasAuthority())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: not authority."));
+		return;
+	}
+
+	AProtocolRiftArenaCharacter* OwningCharacter = GetOwningCharacter();
+	if (!OwningCharacter)
+	{	
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: no owning character."));
+		return;
+	}
+
+	const FVector TraceEnd = TraceStart + (TraceDirection * TraceRange);
 
 	FHitResult HitResult;
 
@@ -69,17 +130,26 @@ void APRAWeaponBase::Fire()
 	if (bHit)
 	{
 		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 12, FColor::Green, false, 2.0f);
-		UE_LOG(LogTemp, Log, TEXT("Weapon hit: %s"), *HitResult.GetActor()->GetName());
+		UE_LOG(LogTemp, Log, TEXT("Server Weapon hit: %s"), *HitResult.GetActor()->GetName());
 	}
 	else
 	{
-		UE_LOG(LogTemp, Log, TEXT("Weapon fire but hit nothing"));
+		UE_LOG(LogTemp, Log, TEXT("Server Weapon fire but hit nothing"));
 	}
-
 }
 
 AProtocolRiftArenaCharacter* APRAWeaponBase::GetOwningCharacter() const
 {
 	return Cast<AProtocolRiftArenaCharacter>(GetOwner());
+}
+
+void APRAWeaponBase::ServerStartFire_Implementation(const FVector_NetQuantize TraceStart, const FVector_NetQuantizeNormal TraceDirection)
+{
+	UE_LOG(LogTemp, Warning, TEXT("ServerStartFire received | Weapon: %s | Owner: %s | Authority: %d"),
+		*GetNameSafe(this),
+		*GetNameSafe(GetOwner()),
+		HasAuthority());
+
+	FireTrace(TraceStart, TraceDirection);
 }
 

@@ -73,7 +73,7 @@ protected:
 	float SprintSpeed = 800.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement|Crouch")
 	float CrouchSpeed = 250.0f;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Sprint")
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_IsSprinting, BlueprintReadOnly, Category = "Movement|Sprint")
 	bool bIsSprinting = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Sprint")
 	bool bWantsToSprint = false;
@@ -97,7 +97,7 @@ protected:
 	bool bWantsToAim = false;
 	UPROPERTY(VisibleAnywhere,ReplicatedUsing = OnRep_IsAiming ,BlueprintReadOnly, Category = "Movement|Aim")
 	bool bIsAiming = false;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement|Aim")
+	UPROPERTY(VisibleAnywhere, Replicated, BlueprintReadOnly, Category = "Movement|Aim")
 	float AimPitch = 0.0f;
 	/** World-space camera root offset while aiming */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera|Root")
@@ -209,6 +209,10 @@ public:
 	virtual void DoCrouchEnd();
 	UFUNCTION(BlueprintCallable, Category = "Movement")
 	virtual void UpdateMovementSpeed();
+	UFUNCTION()
+	void OnRep_IsSprinting();
+	UFUNCTION(Server, Reliable)
+	void ServerSetWantsToSprint(bool bNewSprinting);
 
 	//Aiming
 	UFUNCTION(BlueprintCallable, Category = "Movement|Aim")
@@ -225,6 +229,10 @@ public:
 	bool IsAiming() const { return bIsAiming; }
 	UFUNCTION(BlueprintPure, Category = "Movement|Aim")
 	float GetAimPitch() const { return AimPitch; }
+	UFUNCTION()
+	void OnRep_IsAiming();
+	UFUNCTION(Server, Reliable)
+	void ServerSetWantsToAim(bool bNewAiming);
 
 	//Weapon
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
@@ -234,10 +242,7 @@ public:
 	UFUNCTION()
 	void OnRep_CurrentWeapon();
 	void AttachCurrentWeaponToMesh();
-	UFUNCTION()
-	void OnRep_IsAiming();
-	UFUNCTION(Server, Reliable)
-	void ServerSetWantsToAim(bool bNewAiming);
+
 
 public:
 

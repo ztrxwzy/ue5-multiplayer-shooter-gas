@@ -33,8 +33,6 @@ protected:
 	float FireRate = 600.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapons|Stats")
 	float TraceRange = 10000.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapons|Fire")
-	float TraceDistance = 10000.0f;
 public:	
 	UFUNCTION(BlueprintPure, Category = "Weapon|Stats")
 	float GetDamage() const { return Damage; }
@@ -50,9 +48,13 @@ public:
 	virtual void StartFire();
 	UFUNCTION(BlueprintCallable, Category = "Weapon|Fire")
 	virtual void StopFire();
+	UFUNCTION(Server, Reliable)
+	void ServerStartFire(FVector_NetQuantize TraceStart, FVector_NetQuantizeNormal TraceDirection);
+	void FireTrace(const FVector& TraceStart, const FVector& TraceDirection);
 
 protected: 
 	virtual void Fire();
 	AProtocolRiftArenaCharacter* GetOwningCharacter() const;
+	virtual void BeginPlay() override;
 
 };

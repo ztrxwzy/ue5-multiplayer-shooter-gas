@@ -19,11 +19,12 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 // ********** Begin Class AProtocolRiftArenaCharacter **********************************************
 #define FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
 	virtual void ServerSetWantsToAim_Implementation(bool bNewAiming); \
-	DECLARE_FUNCTION(execServerSetWantsToAim); \
-	DECLARE_FUNCTION(execOnRep_IsAiming); \
+	virtual void ServerSetWantsToSprint_Implementation(bool bNewSprinting); \
 	DECLARE_FUNCTION(execOnRep_CurrentWeapon); \
 	DECLARE_FUNCTION(execDoFireEnd); \
 	DECLARE_FUNCTION(execDoFireStart); \
+	DECLARE_FUNCTION(execServerSetWantsToAim); \
+	DECLARE_FUNCTION(execOnRep_IsAiming); \
 	DECLARE_FUNCTION(execGetAimPitch); \
 	DECLARE_FUNCTION(execIsAiming); \
 	DECLARE_FUNCTION(execRefreshAimState); \
@@ -31,6 +32,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	DECLARE_FUNCTION(execSetAiming); \
 	DECLARE_FUNCTION(execDoAimEnd); \
 	DECLARE_FUNCTION(execDoAimStart); \
+	DECLARE_FUNCTION(execServerSetWantsToSprint); \
+	DECLARE_FUNCTION(execOnRep_IsSprinting); \
 	DECLARE_FUNCTION(execUpdateMovementSpeed); \
 	DECLARE_FUNCTION(execDoCrouchEnd); \
 	DECLARE_FUNCTION(execDoCrouchStart); \
@@ -62,7 +65,9 @@ public: \
 	enum class ENetFields_Private : uint16 \
 	{ \
 		NETFIELD_REP_START=(uint16)((int32)Super::ENetFields_Private::NETFIELD_REP_END + (int32)1), \
-		bIsAiming=NETFIELD_REP_START, \
+		bIsSprinting=NETFIELD_REP_START, \
+		bIsAiming, \
+		AimPitch, \
 		CurrentWeapon, \
 		NETFIELD_REP_END=CurrentWeapon	}; \
 	DECLARE_VALIDATE_GENERATED_REP_ENUMS(NO_API)

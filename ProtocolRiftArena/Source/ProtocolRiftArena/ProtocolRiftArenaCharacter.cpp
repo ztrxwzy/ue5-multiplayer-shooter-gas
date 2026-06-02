@@ -115,6 +115,8 @@ void AProtocolRiftArenaCharacter::BeginPlay()
 	{
 		SpawnDefaultWeapon();
 	}
+
+
 }
 
 void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
@@ -192,12 +194,20 @@ void AProtocolRiftArenaCharacter::DoSprintStart()
 {
 	bWantsToSprint = true;
 	RefreshSprintState();
+	if(!HasAuthority())
+	{
+		ServerSetWantsToSprint(true);
+	}	
 }
 
 void AProtocolRiftArenaCharacter::DoSprintEnd()
 {
 	bWantsToSprint = false;
 	RefreshSprintState();
+	if (!HasAuthority())
+	{
+		ServerSetWantsToSprint(false);
+	}
 }
 
 void AProtocolRiftArenaCharacter::SetSprinting(bool bNewSprinting)
@@ -218,10 +228,6 @@ bool AProtocolRiftArenaCharacter::HasMovementInput() const
 
 bool AProtocolRiftArenaCharacter::CanSprint() const
 {
-	if (!HasMovementInput())
-	{
-		return false;
-	}
 	if (bIsCrouched)
 	{
 		return false;
@@ -459,6 +465,11 @@ void AProtocolRiftArenaCharacter::EquipWeapon(APRAWeaponBase* NewWeapon)
 
 void AProtocolRiftArenaCharacter::UpdateAimOffset(float DeltaTime)
 {
+	if(!IsLocallyControlled() && !HasAuthority())
+	{
+		return;
+	}
+
 	const FRotator ControlRotation = GetControlRotation();
 
 	float NormalizedPitch = ControlRotation.Pitch;
@@ -514,6 +525,8 @@ void AProtocolRiftArenaCharacter::GetLifetimeReplicatedProps(TArray<FLifetimePro
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(AProtocolRiftArenaCharacter, CurrentWeapon);
 	DOREPLIFETIME(AProtocolRiftArenaCharacter, bIsAiming);
+	DOREPLIFETIME(AProtocolRiftArenaCharacter, bIsSprinting);
+	DOREPLIFETIME(AProtocolRiftArenaCharacter, AimPitch);
 }
 
 void AProtocolRiftArenaCharacter::AttachCurrentWeaponToMesh()
@@ -529,11 +542,24 @@ void AProtocolRiftArenaCharacter::AttachCurrentWeaponToMesh()
 		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Failed to get Mesh component on %s while trying to equip weapon."), *GetNameSafe(this));
 		return;
 	}
+
+	UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attaching weapon | Character: %s | Weapon: %s | Socket: %s | Authority: %d | LocallyControlled: %d"),
+		*GetNameSafe(this),
+		*GetNameSafe(CurrentWeapon),
+		*WeaponAttachSocketName.ToString(),
+		HasAuthority(),
+		IsLocallyControlled());	
+
 	CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponAttachSocketName);
 }
 
 void AProtocolRiftArenaCharacter::OnRep_CurrentWeapon()
 {
+	UE_LOG(LogProtocolRiftArena, Warning, TEXT("OnRep_CurrentWeapon | Character: %s | CurrentWeapon: %s | Authority: %d | LocallyControlled: %d"),
+		*GetNameSafe(this),
+		*GetNameSafe(CurrentWeapon),
+		HasAuthority(),
+		IsLocallyControlled());
 	AttachCurrentWeaponToMesh();
 }
 
@@ -554,6 +580,17 @@ void AProtocolRiftArenaCharacter::ServerSetWantsToAim_Implementation(bool bNewWa
 }
 
 void AProtocolRiftArenaCharacter::OnRep_IsAiming()
+{
+	UpdateMovementSpeed();
+}
+
+void AProtocolRiftArenaCharacter::ServerSetWantsToSprint_Implementation(bool bNewWantsToSprint)
+{
+	bWantsToSprint = bNewWantsToSprint;
+	RefreshSprintState();
+}
+
+void AProtocolRiftArenaCharacter::OnRep_IsSprinting()
 {
 	UpdateMovementSpeed();
 }
