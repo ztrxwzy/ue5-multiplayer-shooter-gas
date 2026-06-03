@@ -20,9 +20,12 @@ ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
+GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UAbilitySystemComponent_NoRegister();
+GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UAbilitySystemInterface_NoRegister();
 PROTOCOLRIFTARENA_API UClass* Z_Construct_UClass_APRAWeaponBase_NoRegister();
 PROTOCOLRIFTARENA_API UClass* Z_Construct_UClass_AProtocolRiftArenaCharacter();
 PROTOCOLRIFTARENA_API UClass* Z_Construct_UClass_AProtocolRiftArenaCharacter_NoRegister();
+PROTOCOLRIFTARENA_API UClass* Z_Construct_UClass_UPRAAttributeSet_NoRegister();
 UPackage* Z_Construct_UPackage__Script_ProtocolRiftArena();
 // ********** End Cross Module References **********************************************************
 
@@ -704,6 +707,66 @@ DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execGetAimPitch)
 	P_NATIVE_END;
 }
 // ********** End Class AProtocolRiftArenaCharacter Function GetAimPitch ***************************
+
+// ********** Begin Class AProtocolRiftArenaCharacter Function GetAttributeSet *********************
+struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics
+{
+	struct ProtocolRiftArenaCharacter_eventGetAttributeSet_Parms
+	{
+		UPRAAttributeSet* ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "GAS" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** Ability System Interface */" },
+#endif
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Ability System Interface" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReturnValue_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function GetAttributeSet constinit property declarations ***********************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetAttributeSet constinit property declarations *************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function GetAttributeSet Property Definitions **********************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000080588, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ProtocolRiftArenaCharacter_eventGetAttributeSet_Parms, ReturnValue), Z_Construct_UClass_UPRAAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReturnValue_MetaData), NewProp_ReturnValue_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::PropPointers) < 2048);
+// ********** End Function GetAttributeSet Property Definitions ************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "GetAttributeSet", 	Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::ProtocolRiftArenaCharacter_eventGetAttributeSet_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::ProtocolRiftArenaCharacter_eventGetAttributeSet_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execGetAttributeSet)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(UPRAAttributeSet**)Z_Param__Result=P_THIS->GetAttributeSet();
+	P_NATIVE_END;
+}
+// ********** End Class AProtocolRiftArenaCharacter Function GetAttributeSet ***********************
 
 // ********** Begin Class AProtocolRiftArenaCharacter Function HasMovementInput ********************
 struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput_Statics
@@ -1534,6 +1597,22 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ "Category", "Weapon" },
 		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AbilitySystemComponent_MetaData[] = {
+		{ "Category", "GAS" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** Ability System Interface */" },
+#endif
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Ability System Interface" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AttributeSet_MetaData[] = {
+		{ "Category", "GAS" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class AProtocolRiftArenaCharacter constinit property declarations **************
@@ -1570,6 +1649,8 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 	static const UECodeGen_Private::FClassPropertyParams NewProp_DefaultWeaponClass;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_CurrentWeapon;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_WeaponAttachSocketName;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_AbilitySystemComponent;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_AttributeSet;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AProtocolRiftArenaCharacter constinit property declarations ****************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
@@ -1588,6 +1669,7 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ .NameUTF8 = UTF8TEXT("DoSprintEnd"), .Pointer = &AProtocolRiftArenaCharacter::execDoSprintEnd },
 		{ .NameUTF8 = UTF8TEXT("DoSprintStart"), .Pointer = &AProtocolRiftArenaCharacter::execDoSprintStart },
 		{ .NameUTF8 = UTF8TEXT("GetAimPitch"), .Pointer = &AProtocolRiftArenaCharacter::execGetAimPitch },
+		{ .NameUTF8 = UTF8TEXT("GetAttributeSet"), .Pointer = &AProtocolRiftArenaCharacter::execGetAttributeSet },
 		{ .NameUTF8 = UTF8TEXT("HasMovementInput"), .Pointer = &AProtocolRiftArenaCharacter::execHasMovementInput },
 		{ .NameUTF8 = UTF8TEXT("IsAiming"), .Pointer = &AProtocolRiftArenaCharacter::execIsAiming },
 		{ .NameUTF8 = UTF8TEXT("OnRep_CurrentWeapon"), .Pointer = &AProtocolRiftArenaCharacter::execOnRep_CurrentWeapon },
@@ -1618,6 +1700,7 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintEnd, "DoSprintEnd" }, // 327933395
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoSprintStart, "DoSprintStart" }, // 3440152050
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAimPitch, "GetAimPitch" }, // 2542483398
+		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_GetAttributeSet, "GetAttributeSet" }, // 3619289873
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_HasMovementInput, "HasMovementInput" }, // 3008818497
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_IsAiming, "IsAiming" }, // 1473698128
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_OnRep_CurrentWeapon, "OnRep_CurrentWeapon" }, // 395287858
@@ -1632,6 +1715,7 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_UpdateMovementSpeed, "UpdateMovementSpeed" }, // 3162148568
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
+	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AProtocolRiftArenaCharacter>::IsAbstract,
 	};
@@ -1684,6 +1768,8 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AProtocolRiftA
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_DefaultWeaponClass = { "DefaultWeaponClass", nullptr, (EPropertyFlags)0x0024080000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, DefaultWeaponClass), Z_Construct_UClass_UClass_NoRegister, Z_Construct_UClass_APRAWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefaultWeaponClass_MetaData), NewProp_DefaultWeaponClass_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CurrentWeapon = { "CurrentWeapon", "OnRep_CurrentWeapon", (EPropertyFlags)0x0020080100020035, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, CurrentWeapon), Z_Construct_UClass_APRAWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentWeapon_MetaData), NewProp_CurrentWeapon_MetaData) };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_WeaponAttachSocketName = { "WeaponAttachSocketName", nullptr, (EPropertyFlags)0x0020080000010015, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, WeaponAttachSocketName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeaponAttachSocketName_MetaData), NewProp_WeaponAttachSocketName_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_AbilitySystemComponent = { "AbilitySystemComponent", nullptr, (EPropertyFlags)0x00200800000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, AbilitySystemComponent), Z_Construct_UClass_UAbilitySystemComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AbilitySystemComponent_MetaData), NewProp_AbilitySystemComponent_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_AttributeSet = { "AttributeSet", nullptr, (EPropertyFlags)0x00200800000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, AttributeSet), Z_Construct_UClass_UPRAAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttributeSet_MetaData), NewProp_AttributeSet_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CameraBoom,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_FollowCamera,
@@ -1714,6 +1800,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocol
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_DefaultWeaponClass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_CurrentWeapon,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_WeaponAttachSocketName,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_AbilitySystemComponent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_AttributeSet,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers) < 2048);
 // ********** End Class AProtocolRiftArenaCharacter Property Definitions ***************************
@@ -1722,6 +1810,9 @@ UObject* (*const Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::Depende
 	(UObject* (*)())Z_Construct_UPackage__Script_ProtocolRiftArena,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::InterfaceParams[] = {
+	{ Z_Construct_UClass_UAbilitySystemInterface_NoRegister, (int32)VTABLE_OFFSET(AProtocolRiftArenaCharacter, IAbilitySystemInterface), false },  // 2722098046
+};
 const UECodeGen_Private::FClassParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::ClassParams = {
 	&AProtocolRiftArenaCharacter::StaticClass,
 	"Game",
@@ -1729,11 +1820,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AProtocolRiftArenaChara
 	DependentSingletons,
 	FuncInfo,
 	Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers,
-	nullptr,
+	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::PropPointers),
-	0,
+	UE_ARRAY_COUNT(InterfaceParams),
 	0x008000A5u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::Class_MetaDataParams), Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::Class_MetaDataParams)
 };
@@ -1773,10 +1864,10 @@ AProtocolRiftArenaCharacter::~AProtocolRiftArenaCharacter() {}
 struct Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 4289898817U) },
+		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 3461014168U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_1961599212{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_3415956440{
 	TEXT("/Script/ProtocolRiftArena"),
 	Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo),
 	nullptr, 0,

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProtocolRiftArenaModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19aec4043c8a5d940dde5bd449b4f36060b0215c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9024b5c0866b4010dcea27bc489923d9a9551e82")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProtocolRiftArenaModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProtocolRiftArenaModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

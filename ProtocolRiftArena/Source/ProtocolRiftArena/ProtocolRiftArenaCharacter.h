@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "AbilitySystemInterface.h"
 #include "ProtocolRiftArenaCharacter.generated.h"
 
 class USpringArmComponent;
@@ -13,6 +14,8 @@ class UInputAction;
 class USceneComponent;
 struct FInputActionValue;
 class APRAWeaponBase;
+class UAbilitySystemComponent;
+class UPRAAttributeSet;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -21,7 +24,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class AProtocolRiftArenaCharacter : public ACharacter
+class AProtocolRiftArenaCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -113,6 +116,13 @@ protected:
 	APRAWeaponBase* CurrentWeapon = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	FName WeaponAttachSocketName = TEXT("hand_rSocket");
+
+	/** Ability System Interface */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
+	UAbilitySystemComponent* AbilitySystemComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
+	UPRAAttributeSet* AttributeSet;
+
 
 public:
 
@@ -243,6 +253,9 @@ public:
 	void OnRep_CurrentWeapon();
 	void AttachCurrentWeaponToMesh();
 
+	/** Ability System Interface */
+	UFUNCTION(BlueprintPure, Category = "GAS")
+	UPRAAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 public:
 
@@ -253,5 +266,8 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
 };
 

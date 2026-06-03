@@ -14,11 +14,17 @@
 #include "Components/SceneComponent.h"
 #include "PRAWeaponBase.h"
 #include "Net/UnrealNetwork.h"
+#include "AbilitySystemComponent.h"
+#include "PRAAttributeSet.h"
 
 AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 {
-
 	PrimaryActorTick.bCanEverTick = true;
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+
+	AttributeSet = CreateDefaultSubobject<UPRAAttributeSet>(TEXT("AttributeSet"));
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -105,6 +111,11 @@ void AProtocolRiftArenaCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
+
 	if(CameraRoot)
 	{
 		CameraRoot->SetUsingAbsoluteLocation(true);
@@ -116,7 +127,14 @@ void AProtocolRiftArenaCharacter::BeginPlay()
 		SpawnDefaultWeapon();
 	}
 
-
+	if (AttributeSet)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("AttributeSet Init | Character: %s | Health: %.1f | MaxHealth: %.1f | Authority: %d"),
+			*GetNameSafe(this),
+			AttributeSet->GetHealth(),
+			AttributeSet->GetMaxHealth(),
+			HasAuthority());
+	}
 }
 
 void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
@@ -125,6 +143,11 @@ void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
 	UpdateCameraRoot(DeltaTime);
 	UpdateAimOffset(DeltaTime);
 	UpdateAimRotation(DeltaTime);
+}
+
+UAbilitySystemComponent* AProtocolRiftArenaCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 
 void AProtocolRiftArenaCharacter::Move(const FInputActionValue& Value)
