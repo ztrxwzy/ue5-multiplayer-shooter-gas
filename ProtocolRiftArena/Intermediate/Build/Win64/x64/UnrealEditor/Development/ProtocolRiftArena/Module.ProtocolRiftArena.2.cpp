@@ -15,4 +15,3 @@
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingCharacter.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingGameMode.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingInteractable.gen.cpp"
-#include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingJumpPad.gen.cpp"

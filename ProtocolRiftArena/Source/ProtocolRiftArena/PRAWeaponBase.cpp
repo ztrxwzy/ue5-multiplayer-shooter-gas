@@ -6,6 +6,11 @@
 #include "DrawDebugHelpers.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/World.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
+#include "GameplayEffect.h"
+#include "GameplayEffectTypes.h"
+#include "PRAGameplayTags.h"
 
 // Sets default values
 APRAWeaponBase::APRAWeaponBase()
@@ -123,6 +128,12 @@ void APRAWeaponBase::FireTrace(const FVector& TraceStart, const FVector& TraceDi
 	QueryParams.bTraceComplex = true;
 
 	const bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility, QueryParams);
+	UE_LOG(LogTemp, Warning, TEXT("Trace Hit Details | Actor: %s | Component: %s | ActorClass: %s | ComponentClass: %s"),
+		*GetNameSafe(HitResult.GetActor()),
+		*GetNameSafe(HitResult.GetComponent()),
+		*GetNameSafe(HitResult.GetActor() ? HitResult.GetActor()->GetClass() : nullptr),
+		*GetNameSafe(HitResult.GetComponent() ? HitResult.GetComponent()->GetClass() : nullptr)
+	);
 
 	const FVector DebugEnd = bHit ? HitResult.ImpactPoint : TraceEnd;
 	DrawDebugLine(GetWorld(), TraceStart, DebugEnd, FColor::Red, false, 2.0f, 0, 2.0f);
@@ -131,6 +142,7 @@ void APRAWeaponBase::FireTrace(const FVector& TraceStart, const FVector& TraceDi
 	{
 		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 12, FColor::Green, false, 2.0f);
 		UE_LOG(LogTemp, Log, TEXT("Server Weapon hit: %s"), *HitResult.GetActor()->GetName());
+		ApplyDamageToHitActor(HitResult);
 	}
 	else
 	{
@@ -151,5 +163,67 @@ void APRAWeaponBase::ServerStartFire_Implementation(const FVector_NetQuantize Tr
 		HasAuthority());
 
 	FireTrace(TraceStart, TraceDirection);
+}
+
+void APRAWeaponBase::ApplyDamageToHitActor(const FHitResult& HitResult)
+{
+	if (!HasAuthority())
+	{
+		return;
+	}
+
+	AActor* HitActor = HitResult.GetActor();
+	if(!HitActor)
+	{
+		return;
+	}
+
+	if(!DamageEffect)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("DamageEffect not set on weapon."));
+		return;
+	}
+
+	AProtocolRiftArenaCharacter* OwningCharacter = GetOwningCharacter();
+	if(!OwningCharacter)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: no owning character."));
+		return;
+	}
+
+	UAbilitySystemComponent* SourceASC = OwningCharacter->GetAbilitySystemComponent();
+	if(!SourceASC)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: no ability system component."));
+		return;
+	}
+
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(HitActor);
+	if(!TargetASC)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: no target ability system component."));
+		return;
+	}
+
+	FGameplayEffectContextHandle EffectContext = SourceASC->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+	EffectContext.AddHitResult(HitResult);
+
+	const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffect, 1.0f, EffectContext);
+	if(!SpecHandle.IsValid())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: no valid damage effect."));
+		return;
+	}
+
+	SpecHandle.Data->SetSetByCallerMagnitude(PRAGameplayTags::Data_Damage(), Damage);
+
+	SourceASC->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),TargetASC);
+
+	UE_LOG(LogTemp, Warning, TEXT("Applied GAS damage | Source: %s | Target: %s | Damage: %.1f"),
+		*GetNameSafe(OwningCharacter),
+		*GetNameSafe(HitActor),
+		Damage
+	);
 }
 

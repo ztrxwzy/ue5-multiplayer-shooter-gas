@@ -15,6 +15,8 @@
 #include "PRAWeaponBase.h"
 #include "Net/UnrealNetwork.h"
 #include "AbilitySystemComponent.h"
+#include "GameplayEffect.h"
+#include "GameplayEffectTypes.h"
 #include "PRAAttributeSet.h"
 
 AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
@@ -114,6 +116,7 @@ void AProtocolRiftArenaCharacter::BeginPlay()
 	if (AbilitySystemComponent)
 	{
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+		InitializeAttributes();
 	}
 
 	if(CameraRoot)
@@ -148,6 +151,40 @@ void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
 UAbilitySystemComponent* AProtocolRiftArenaCharacter::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+void AProtocolRiftArenaCharacter::InitializeAttributes()
+{
+	
+	if(!HasAuthority())
+	{
+		return;
+	}
+
+	if (!AbilitySystemComponent)
+	{
+		UE_LOG(LogProtocolRiftArena, Error, TEXT("AbilitySystemComponent is null on %s. Cannot InitializeAttributes."), *GetNameSafe(this));
+		return;
+	}
+
+	if(!DefaultAttributeEffect)
+	{
+		UE_LOG(LogProtocolRiftArena, Error, TEXT("DefaultAttributeEffect is null on %s. Cannot InitializeAttributes."), *GetNameSafe(this));
+		return;
+	}
+
+	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	const FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(DefaultAttributeEffect, 1, EffectContext);
+
+	if(!SpecHandle.IsValid())
+	{
+		UE_LOG(LogProtocolRiftArena, Error, TEXT("Failed to create gameplay effect spec on %s. Cannot InitializeAttributes."), *GetNameSafe(this));
+		return;
+	}
+
+	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 }
 
 void AProtocolRiftArenaCharacter::Move(const FInputActionValue& Value)

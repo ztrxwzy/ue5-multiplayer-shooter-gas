@@ -1,8 +1,6 @@
-[12208:28964:0603/131116.566:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
-[12208:28964:0603/131116.634:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
-[32308:27440:0603/131120.209:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-DD92DE419F1C1AD9F5D8998F7F278988 will be ignored
-[12208:30016:0603/131123.954:ERROR:cast_crl.cc(443)] CRL - Verification failed.
-[12208:30016:0603/131124.032:ERROR:cast_crl.cc(443)] CRL - Verification failed.
-[12208:28964:0603/131125.212:ERROR:device_event_log_impl.cc(196)] [13:11:24.882] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
-[12208:28964:0603/152444.214:ERROR:device_event_log_impl.cc(196)] [15:24:44.071] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
-[12208:28964:0603/161337.898:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.
+[6204:15660:0605/142851.573:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[6204:15660:0605/142856.365:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[6204:15660:0605/142926.867:ERROR:device_event_log_impl.cc(196)] [14:29:25.886] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[8200:11092:0605/142926.916:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-A4505A57D900B57D13F937CAF18C5898 will be ignored
+[6204:10512:0605/142929.522:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[6204:10512:0605/102518.687:ERROR:cast_crl.cc(443)] CRL - Verification failed.

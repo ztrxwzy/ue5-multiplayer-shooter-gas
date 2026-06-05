@@ -7,8 +7,7 @@
 
 UPRAAttributeSet::UPRAAttributeSet()
 {
-	InitMaxHealth(100.f);
-	InitHealth(100.f);
+
 }
 
 
@@ -37,6 +36,30 @@ void UPRAAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 void UPRAAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
+
+	if(Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetIncomingDamage();
+		SetIncomingDamage(0.0f);
+		if (LocalIncomingDamage > 0.0f)
+		{
+			const float OldHealth = GetHealth();
+			const float NewHealth = FMath::Clamp(OldHealth - LocalIncomingDamage, 0.0f, GetMaxHealth());
+			SetHealth(NewHealth);
+			if (NewHealth <= 0.0f)
+			{
+				// Handle death logic here
+				UE_LOG(LogTemp, Warning, TEXT("Character has died."));
+			}
+			UE_LOG(LogTemp, Warning, TEXT("GAS Damage Applied | OldHealth: %.1f | Damage: %.1f | NewHealth: %.1f"),
+				OldHealth,
+				LocalIncomingDamage,
+				NewHealth
+			);
+		}
+
+		return;
+	}
 
 	if(Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{

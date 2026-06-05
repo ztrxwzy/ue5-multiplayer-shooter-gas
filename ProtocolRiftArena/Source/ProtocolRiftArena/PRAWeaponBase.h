@@ -8,6 +8,7 @@
 
 class USkeletalMeshComponent;
 class AProtocolRiftArenaCharacter;
+class UGameplayEffect;
 
 UCLASS()
 class PROTOCOLRIFTARENA_API APRAWeaponBase : public AActor
@@ -27,12 +28,15 @@ protected:
 	USceneComponent* MuzzlePoint;
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapons|Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapons|Damage")
 	float Damage = 25.0f;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapons|Damage")
+	TSubclassOf<UGameplayEffect> DamageEffect;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapons|Stats")
 	float FireRate = 600.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapons|Stats")
 	float TraceRange = 10000.0f;
+	
 public:	
 	UFUNCTION(BlueprintPure, Category = "Weapon|Stats")
 	float GetDamage() const { return Damage; }
@@ -56,5 +60,6 @@ protected:
 	virtual void Fire();
 	AProtocolRiftArenaCharacter* GetOwningCharacter() const;
 	virtual void BeginPlay() override;
+	void ApplyDamageToHitActor(const FHitResult& HitResult);
 
 };

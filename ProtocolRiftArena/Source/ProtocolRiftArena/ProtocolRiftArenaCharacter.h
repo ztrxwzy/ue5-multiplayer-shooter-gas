@@ -16,6 +16,7 @@ struct FInputActionValue;
 class APRAWeaponBase;
 class UAbilitySystemComponent;
 class UPRAAttributeSet;
+class UGameplayEffect;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -122,7 +123,8 @@ protected:
 	UAbilitySystemComponent* AbilitySystemComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
 	UPRAAttributeSet* AttributeSet;
-
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Attributes")
+	TSubclassOf<UGameplayEffect> DefaultAttributeEffect;
 
 public:
 
@@ -174,6 +176,14 @@ protected:
 	void UpdateAimOffset(float DeltaTime);
 
 	void UpdateAimRotation(float DeltaTime);
+
+	/** Initializes GAS attributes using the default attributes GameplayEffect */
+	void InitializeAttributes();
+
+	/** Handles the character's death */
+	void HandleDeath();
+
+
 
 public:
 
