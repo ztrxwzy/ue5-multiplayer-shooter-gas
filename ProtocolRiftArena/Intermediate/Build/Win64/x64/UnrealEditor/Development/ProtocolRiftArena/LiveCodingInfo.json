@@ -51,6 +51,8 @@
 			"SideScrollingStateTreeUtility.gen.cpp.obj",
 			"SideScrollingUI.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
+			"PRAAttributeSet.cpp.obj",
+			"PRAGameplayTags.cpp.obj",
 			"PRAWeaponBase.cpp.obj",
 			"ProtocolRiftArena.cpp.obj",
 			"ProtocolRiftArenaGameMode.cpp.obj",
@@ -93,8 +95,6 @@
 			"SideScrollingGameMode.cpp.obj",
 			"SideScrollingPlayerController.cpp.obj",
 			"SideScrollingUI.cpp.obj",
-			"PRAAttributeSet.cpp.obj",
-			"PRAGameplayTags.cpp.obj",
 			"ProtocolRiftArenaCharacter.cpp.obj"
 		]
 	}

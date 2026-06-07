@@ -23,6 +23,10 @@
 #include "Blueprint/UserWidget.h"
 #include "GameFramework/PlayerController.h"
 
+// ============================================================================
+//							Constructor / Lifecycle
+// ============================================================================
+
 AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -74,6 +78,50 @@ AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
 
+void AProtocolRiftArenaCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+		InitializeAttributes();
+		AbilitySystemComponent->RegisterGameplayTagEvent(PRAGameplayTags::State_Death(), EGameplayTagEventType::NewOrRemoved).AddUObject(this, &AProtocolRiftArenaCharacter::OnDeathTagChanged);
+	}
+
+	if (CameraRoot)
+	{
+		CameraRoot->SetUsingAbsoluteLocation(true);
+		CameraRoot->SetWorldLocation(GetActorLocation() + StandingCameraRootOffset);
+	}
+
+	if (HasAuthority())
+	{
+		SpawnDefaultWeapon();
+	}
+
+	if (AttributeSet)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("AttributeSet Init | Character: %s | Health: %.1f | MaxHealth: %.1f | Authority: %d"),
+			*GetNameSafe(this),
+			AttributeSet->GetHealth(),
+			AttributeSet->GetMaxHealth(),
+			HasAuthority());
+	}
+}
+
+void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	UpdateCameraRoot(DeltaTime);
+	UpdateAimOffset(DeltaTime);
+	UpdateAimRotation(DeltaTime);
+}
+
+// ============================================================================
+//								Input Binding
+// ============================================================================
+
 void AProtocolRiftArenaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	// Set up action bindings
@@ -113,45 +161,9 @@ void AProtocolRiftArenaCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 	}
 }
 
-void AProtocolRiftArenaCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-
-	if (AbilitySystemComponent)
-	{
-		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-		InitializeAttributes();
-		AbilitySystemComponent->RegisterGameplayTagEvent(PRAGameplayTags::State_Death(), EGameplayTagEventType::NewOrRemoved).AddUObject(this, &AProtocolRiftArenaCharacter::OnDeathTagChanged);
-	}
-
-	if(CameraRoot)
-	{
-		CameraRoot->SetUsingAbsoluteLocation(true);
-		CameraRoot->SetWorldLocation(GetActorLocation() + StandingCameraRootOffset);
-	}
-
-	if(HasAuthority())
-	{
-		SpawnDefaultWeapon();
-	}
-
-	if (AttributeSet)
-	{
-		UE_LOG(LogProtocolRiftArena, Warning, TEXT("AttributeSet Init | Character: %s | Health: %.1f | MaxHealth: %.1f | Authority: %d"),
-			*GetNameSafe(this),
-			AttributeSet->GetHealth(),
-			AttributeSet->GetMaxHealth(),
-			HasAuthority());
-	}
-}
-
-void AProtocolRiftArenaCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	UpdateCameraRoot(DeltaTime);
-	UpdateAimOffset(DeltaTime);
-	UpdateAimRotation(DeltaTime);
-}
+// ============================================================================
+//								GAS / Attributes
+// ============================================================================
 
 UAbilitySystemComponent* AProtocolRiftArenaCharacter::GetAbilitySystemComponent() const
 {
@@ -191,6 +203,10 @@ void AProtocolRiftArenaCharacter::InitializeAttributes()
 
 	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 }
+
+// ============================================================================
+//								Input Actions
+// ============================================================================
 
 void AProtocolRiftArenaCharacter::Move(const FInputActionValue& Value)
 {
@@ -263,6 +279,10 @@ void AProtocolRiftArenaCharacter::DoJumpEnd()
 	// signal the character to stop jumping
 	StopJumping();
 }
+
+// ============================================================================
+//							Locomotion / Sprint
+// ============================================================================
 
 void AProtocolRiftArenaCharacter::DoSprintStart()
 {
@@ -373,6 +393,10 @@ void AProtocolRiftArenaCharacter::UpdateMovementSpeed()
 
 }
 
+// ============================================================================
+//									Crouch
+// ============================================================================
+
 void AProtocolRiftArenaCharacter::DoCrouchStart()
 {
 	if(IsDead())
@@ -405,6 +429,11 @@ void AProtocolRiftArenaCharacter::OnEndCrouch(float HalfHeightAdjust, float Scal
 	UpdateMovementSpeed();
 }
 
+
+// ============================================================================
+//									Camera
+// ============================================================================
+
 void AProtocolRiftArenaCharacter::UpdateCameraRoot(float DeltaTime)
 {
 	if (!CameraRoot)
@@ -425,6 +454,10 @@ void AProtocolRiftArenaCharacter::UpdateCameraRoot(float DeltaTime)
 	CameraRoot->SetWorldLocation(NewLocation);
 
 }
+
+// ============================================================================
+//									Aiming
+// ============================================================================
 
 void AProtocolRiftArenaCharacter::DoAimStart()
 {
@@ -507,6 +540,48 @@ FVector AProtocolRiftArenaCharacter::GetDesiredCameraRootOffset() const
 	return StandingCameraRootOffset;
 }
 
+
+void AProtocolRiftArenaCharacter::UpdateAimOffset(float DeltaTime)
+{
+	if (!IsLocallyControlled() && !HasAuthority())
+	{
+		return;
+	}
+
+	const FRotator ControlRotation = GetControlRotation();
+
+	float NormalizedPitch = ControlRotation.Pitch;
+
+	if (NormalizedPitch > 180.0f)
+	{
+		NormalizedPitch -= 360.0f;
+	}
+
+	AimPitch = FMath::Clamp(NormalizedPitch, -90.0f, 90.0f);
+}
+
+void AProtocolRiftArenaCharacter::UpdateAimRotation(float DeltaTime)
+{
+	if (!bIsAiming)
+	{
+		return;
+	}
+
+	if (!GetController())
+	{
+		return;
+	}
+
+	const FRotator ControlRotation = GetControlRotation();
+	const FRotator TargetRotation(0.0f, ControlRotation.Yaw, 0.0f);
+
+	SetActorRotation(TargetRotation);
+}
+
+// ============================================================================
+//								Combat / Weapon
+// ============================================================================
+
 void AProtocolRiftArenaCharacter::SpawnDefaultWeapon()
 {
 	if (!DefaultWeaponClass)
@@ -549,43 +624,6 @@ void AProtocolRiftArenaCharacter::EquipWeapon(APRAWeaponBase* NewWeapon)
 	AttachCurrentWeaponToMesh();
 }
 
-void AProtocolRiftArenaCharacter::UpdateAimOffset(float DeltaTime)
-{
-	if(!IsLocallyControlled() && !HasAuthority())
-	{
-		return;
-	}
-
-	const FRotator ControlRotation = GetControlRotation();
-
-	float NormalizedPitch = ControlRotation.Pitch;
-	
-	if (NormalizedPitch > 180.0f)
-	{
-		NormalizedPitch -= 360.0f;
-	}
-
-	AimPitch = FMath::Clamp(NormalizedPitch, -90.0f, 90.0f);
-}
-
-void AProtocolRiftArenaCharacter::UpdateAimRotation(float DeltaTime)
-{
-	if (!bIsAiming)
-	{
-		return;
-	}
-	
-	if(!GetController())
-	{
-		return;
-	}
-
-	const FRotator ControlRotation = GetControlRotation();
-	const FRotator TargetRotation(0.0f, ControlRotation.Yaw, 0.0f);
-
-	SetActorRotation(TargetRotation);
-}
-
 void AProtocolRiftArenaCharacter::DoFireStart()
 {
 	if (IsDead())
@@ -608,15 +646,6 @@ void AProtocolRiftArenaCharacter::DoFireEnd()
 		return;
 	}
 	CurrentWeapon->StopFire();
-}
-
-void AProtocolRiftArenaCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(AProtocolRiftArenaCharacter, CurrentWeapon);
-	DOREPLIFETIME(AProtocolRiftArenaCharacter, bIsAiming);
-	DOREPLIFETIME(AProtocolRiftArenaCharacter, bIsSprinting);
-	DOREPLIFETIME(AProtocolRiftArenaCharacter, AimPitch);
 }
 
 void AProtocolRiftArenaCharacter::AttachCurrentWeaponToMesh()
@@ -642,6 +671,10 @@ void AProtocolRiftArenaCharacter::AttachCurrentWeaponToMesh()
 
 	CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponAttachSocketName);
 }
+
+// ============================================================================
+//							Death / Dead State
+// ============================================================================
 
 bool AProtocolRiftArenaCharacter::IsDead() const
 {
@@ -731,10 +764,26 @@ void AProtocolRiftArenaCharacter::ApplyDeathEffects()
 
 	if (HasAuthority())
 	{
-		CurrentWeapon->SetLifeSpan(0.7f);
+		if (CurrentWeapon)
+		{
+			CurrentWeapon->SetLifeSpan(0.7f);
+		}
 		SetLifeSpan(0.7f);
 
 	}
+}
+
+// ============================================================================
+//								Replication
+// ============================================================================
+
+void AProtocolRiftArenaCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AProtocolRiftArenaCharacter, CurrentWeapon);
+	DOREPLIFETIME(AProtocolRiftArenaCharacter, bIsAiming);
+	DOREPLIFETIME(AProtocolRiftArenaCharacter, bIsSprinting);
+	DOREPLIFETIME(AProtocolRiftArenaCharacter, AimPitch);
 }
 
 void AProtocolRiftArenaCharacter::OnRep_CurrentWeapon()
