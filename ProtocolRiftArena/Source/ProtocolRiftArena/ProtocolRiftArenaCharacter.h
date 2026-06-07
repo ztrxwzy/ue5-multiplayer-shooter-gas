@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayTagContainer.h"
 #include "ProtocolRiftArenaCharacter.generated.h"
 
 class USpringArmComponent;
@@ -17,6 +18,7 @@ class APRAWeaponBase;
 class UAbilitySystemComponent;
 class UPRAAttributeSet;
 class UGameplayEffect;
+class UUserWidget;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -126,6 +128,16 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Attributes")
 	TSubclassOf<UGameplayEffect> DefaultAttributeEffect;
 
+	/**Death*/
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Death")
+	TSubclassOf<UGameplayEffect> DeathEffect;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Death")
+	bool bDeathStateApplied = false;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Death")
+	TSubclassOf<UUserWidget> DeathScreenWidgetClass;
+	UPROPERTY()
+	UUserWidget* DeathScreenWidget;
+
 public:
 
 	/** Constructor */
@@ -180,10 +192,13 @@ protected:
 	/** Initializes GAS attributes using the default attributes GameplayEffect */
 	void InitializeAttributes();
 
+public:
 	/** Handles the character's death */
 	void HandleDeath();
 
+	void ApplyDeathEffects();
 
+	void OnDeathTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
 
 public:
 
@@ -266,6 +281,8 @@ public:
 	/** Ability System Interface */
 	UFUNCTION(BlueprintPure, Category = "GAS")
 	UPRAAttributeSet* GetAttributeSet() const { return AttributeSet; }
+	UFUNCTION(BlueprintPure, Category = "GAS|Death")
+	bool IsDead() const;
 
 public:
 

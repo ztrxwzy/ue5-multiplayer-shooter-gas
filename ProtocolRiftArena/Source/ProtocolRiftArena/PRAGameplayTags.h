@@ -6,5 +6,6 @@
 namespace PRAGameplayTags
 {
 	FGameplayTag Data_Damage();
+	FGameplayTag State_Death();
 }
 

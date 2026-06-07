@@ -18,6 +18,10 @@
 #include "GameplayEffect.h"
 #include "GameplayEffectTypes.h"
 #include "PRAAttributeSet.h"
+#include "PRAGameplayTags.h"
+#include "AbilitySystemComponent.h"
+#include "Blueprint/UserWidget.h"
+#include "GameFramework/PlayerController.h"
 
 AProtocolRiftArenaCharacter::AProtocolRiftArenaCharacter()
 {
@@ -117,6 +121,7 @@ void AProtocolRiftArenaCharacter::BeginPlay()
 	{
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		InitializeAttributes();
+		AbilitySystemComponent->RegisterGameplayTagEvent(PRAGameplayTags::State_Death(), EGameplayTagEventType::NewOrRemoved).AddUObject(this, &AProtocolRiftArenaCharacter::OnDeathTagChanged);
 	}
 
 	if(CameraRoot)
@@ -189,6 +194,10 @@ void AProtocolRiftArenaCharacter::InitializeAttributes()
 
 void AProtocolRiftArenaCharacter::Move(const FInputActionValue& Value)
 {
+	if(IsDead())
+	{
+		return;
+	}
 	// input is a Vector2D
 	LastMovementInput = Value.Get<FVector2D>();
 	
@@ -201,6 +210,10 @@ void AProtocolRiftArenaCharacter::Move(const FInputActionValue& Value)
 
 void AProtocolRiftArenaCharacter::Look(const FInputActionValue& Value)
 {
+	if(IsDead())
+	{
+		return;
+	}
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
 
@@ -210,6 +223,7 @@ void AProtocolRiftArenaCharacter::Look(const FInputActionValue& Value)
 
 void AProtocolRiftArenaCharacter::DoMove(float Right, float Forward)
 {
+
 	if (GetController() != nullptr)
 	{
 		// find out which way is forward
@@ -252,6 +266,10 @@ void AProtocolRiftArenaCharacter::DoJumpEnd()
 
 void AProtocolRiftArenaCharacter::DoSprintStart()
 {
+	if(IsDead())
+	{
+		return;
+	}
 	bWantsToSprint = true;
 	RefreshSprintState();
 	if(!HasAuthority())
@@ -357,6 +375,10 @@ void AProtocolRiftArenaCharacter::UpdateMovementSpeed()
 
 void AProtocolRiftArenaCharacter::DoCrouchStart()
 {
+	if(IsDead())
+	{
+		return;
+	}
 	UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoCrouchStart called"));
 	Crouch();
 }
@@ -406,6 +428,10 @@ void AProtocolRiftArenaCharacter::UpdateCameraRoot(float DeltaTime)
 
 void AProtocolRiftArenaCharacter::DoAimStart()
 {
+	if(IsDead())
+	{
+		return;
+	}
 	bWantsToAim = true;
 	SetSprinting(false);
 	RefreshAimState();
@@ -562,6 +588,10 @@ void AProtocolRiftArenaCharacter::UpdateAimRotation(float DeltaTime)
 
 void AProtocolRiftArenaCharacter::DoFireStart()
 {
+	if (IsDead())
+	{
+		return;
+	}
 	if(!CurrentWeapon)
 	{
 		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attempted to fire weapon while no weapon is equipped on %s."), *GetNameSafe(this));
@@ -611,6 +641,100 @@ void AProtocolRiftArenaCharacter::AttachCurrentWeaponToMesh()
 		IsLocallyControlled());	
 
 	CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponAttachSocketName);
+}
+
+bool AProtocolRiftArenaCharacter::IsDead() const
+{
+	const UAbilitySystemComponent* ASC = GetAbilitySystemComponent();
+	return ASC && ASC->HasMatchingGameplayTag(PRAGameplayTags::State_Death());
+}
+
+void AProtocolRiftArenaCharacter::HandleDeath()
+{
+	if(!HasAuthority())
+	{
+		return;
+	}
+	
+	if (IsDead())
+	{
+		return;
+	}
+	
+	UAbilitySystemComponent* ASC = GetAbilitySystemComponent();
+
+	if(!ASC || !DeathEffect)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Cannot apply death effect on %s. ASC or DeathEffect is null."), *GetNameSafe(this));
+		return;
+	}
+
+	FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(DeathEffect, 1, EffectContext);
+	if(SpecHandle.IsValid())
+	{
+		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
+}
+
+void AProtocolRiftArenaCharacter::OnDeathTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	if (NewCount > 0)
+	{
+		ApplyDeathEffects();
+	}
+}
+
+void AProtocolRiftArenaCharacter::ApplyDeathEffects()
+{
+	if(bDeathStateApplied)
+	{
+		return;
+	}
+
+	bDeathStateApplied = true;
+
+	DoFireEnd();
+	SetAiming(false);
+	SetSprinting(false);
+
+	GetCharacterMovement()->StopMovementImmediately();
+	GetCharacterMovement()->DisableMovement();
+
+	if(IsLocallyControlled())
+	{
+		if(APlayerController* PC = Cast<APlayerController>(GetController()))
+		{
+			PC->SetIgnoreMoveInput(true);
+			PC->SetIgnoreLookInput(true);
+
+			if(DeathScreenWidgetClass && !DeathScreenWidget)
+			{
+				DeathScreenWidget = CreateWidget<UUserWidget>(PC, DeathScreenWidgetClass);
+				if(DeathScreenWidget)
+				{
+					DeathScreenWidget->AddToViewport();
+					UE_LOG(LogProtocolRiftArena, Warning, TEXT("Death UI check | Local: %d | PC: %s | WidgetClass: %s | ExistingWidget: %s"),
+						IsLocallyControlled(),
+						*GetNameSafe(GetController()),
+						*GetNameSafe(DeathScreenWidgetClass),
+						*GetNameSafe(DeathScreenWidget));
+				}
+			}
+		}
+
+		//Widget execution for local player death could go here, such as showing a respawn timer, or a "You Died" message. For this template, we will just log it.
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Player %s has died."), *GetNameSafe(this));
+	}
+
+	if (HasAuthority())
+	{
+		CurrentWeapon->SetLifeSpan(0.7f);
+		SetLifeSpan(0.7f);
+
+	}
 }
 
 void AProtocolRiftArenaCharacter::OnRep_CurrentWeapon()

@@ -3,6 +3,7 @@
 
 #include "PRAAttributeSet.h"
 #include "Net/UnrealNetwork.h"
+#include "ProtocolRiftArenaCharacter.h"
 #include "GameplayEffectExtension.h"
 
 UPRAAttributeSet::UPRAAttributeSet()
@@ -48,7 +49,18 @@ void UPRAAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 			SetHealth(NewHealth);
 			if (NewHealth <= 0.0f)
 			{
-				// Handle death logic here
+				UAbilitySystemComponent* TargetASC = Data.Target.AbilityActorInfo->AbilitySystemComponent.Get();
+				AActor* TargetActor = TargetASC ? TargetASC->GetAvatarActor() : nullptr;
+				AProtocolRiftArenaCharacter* TargetCharacter = Cast<AProtocolRiftArenaCharacter>(TargetActor);
+				if (TargetCharacter->IsDead())
+				{
+					return;
+				}
+
+				if (TargetCharacter)
+				{
+					TargetCharacter->HandleDeath();
+				}
 				UE_LOG(LogTemp, Warning, TEXT("Character has died."));
 			}
 			UE_LOG(LogTemp, Warning, TEXT("GAS Damage Applied | OldHealth: %.1f | Damage: %.1f | NewHealth: %.1f"),

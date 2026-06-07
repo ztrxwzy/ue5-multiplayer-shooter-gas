@@ -1,6 +1,12 @@
-[6204:15660:0605/142851.573:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
-[6204:15660:0605/142856.365:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
-[6204:15660:0605/142926.867:ERROR:device_event_log_impl.cc(196)] [14:29:25.886] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
-[8200:11092:0605/142926.916:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-A4505A57D900B57D13F937CAF18C5898 will be ignored
-[6204:10512:0605/142929.522:ERROR:cast_crl.cc(443)] CRL - Verification failed.
-[6204:10512:0605/102518.687:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[14836:20216:0607/093230.941:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[14836:20216:0607/093236.384:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[8896:19940:0607/093307.977:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-81050B057505F921AD5870741D127DC5 will be ignored
+[14836:20216:0607/093309.594:ERROR:device_event_log_impl.cc(196)] [09:33:07.612] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[14836:16792:0607/093311.182:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[14836:20216:0607/094507.792:ERROR:device_event_log_impl.cc(196)] [09:45:07.781] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[14836:16792:0607/102901.945:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[14836:404:0607/104705.174:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[22444:24356:0607/104705.175:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[14836:16792:0607/104708.664:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[14836:20216:0607/104712.258:ERROR:device_event_log_impl.cc(196)] [10:47:11.945] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[14836:20216:0607/112453.670:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.
