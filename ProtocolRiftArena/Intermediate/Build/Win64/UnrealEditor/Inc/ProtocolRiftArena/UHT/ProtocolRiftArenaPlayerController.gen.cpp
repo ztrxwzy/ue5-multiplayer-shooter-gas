@@ -115,6 +115,15 @@ struct Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics
 		{ "ToolTip", "If true, the player will use UMG touch controls even if not playing on mobile platforms" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HUDWidgetClass_MetaData[] = {
+		{ "Category", "UI" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaPlayerController.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HUDWidget_MetaData[] = {
+		{ "Category", "UI" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaPlayerController.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class AProtocolRiftArenaPlayerController constinit property declarations *******
@@ -126,6 +135,8 @@ struct Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MobileControlsWidget;
 	static void NewProp_bForceTouchControls_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bForceTouchControls;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_HUDWidgetClass;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_HUDWidget;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AProtocolRiftArenaPlayerController constinit property declarations *********
 	static UObject* (*const DependentSingletons[])();
@@ -147,6 +158,8 @@ void Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_bFor
 	((AProtocolRiftArenaPlayerController*)Obj)->bForceTouchControls = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_bForceTouchControls = { "bForceTouchControls", nullptr, (EPropertyFlags)0x0020080000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AProtocolRiftArenaPlayerController), &Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_bForceTouchControls_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bForceTouchControls_MetaData), NewProp_bForceTouchControls_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_HUDWidgetClass = { "HUDWidgetClass", nullptr, (EPropertyFlags)0x0024080000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaPlayerController, HUDWidgetClass), Z_Construct_UClass_UClass_NoRegister, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HUDWidgetClass_MetaData), NewProp_HUDWidgetClass_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_HUDWidget = { "HUDWidget", nullptr, (EPropertyFlags)0x012408000008001c, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaPlayerController, HUDWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HUDWidget_MetaData), NewProp_HUDWidget_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_DefaultMappingContexts_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_DefaultMappingContexts,
@@ -155,6 +168,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocol
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_MobileControlsWidgetClass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_MobileControlsWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_bForceTouchControls,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_HUDWidgetClass,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::NewProp_HUDWidget,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AProtocolRiftArenaPlayerController_Statics::PropPointers) < 2048);
 // ********** End Class AProtocolRiftArenaPlayerController Property Definitions ********************
@@ -198,10 +213,10 @@ AProtocolRiftArenaPlayerController::~AProtocolRiftArenaPlayerController() {}
 struct Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaPlayerController_h__Script_ProtocolRiftArena_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AProtocolRiftArenaPlayerController, AProtocolRiftArenaPlayerController::StaticClass, TEXT("AProtocolRiftArenaPlayerController"), &Z_Registration_Info_UClass_AProtocolRiftArenaPlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaPlayerController), 120071385U) },
+		{ Z_Construct_UClass_AProtocolRiftArenaPlayerController, AProtocolRiftArenaPlayerController::StaticClass, TEXT("AProtocolRiftArenaPlayerController"), &Z_Registration_Info_UClass_AProtocolRiftArenaPlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaPlayerController), 1715958802U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaPlayerController_h__Script_ProtocolRiftArena_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaPlayerController_h__Script_ProtocolRiftArena_1847107357{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaPlayerController_h__Script_ProtocolRiftArena_4176893492{
 	TEXT("/Script/ProtocolRiftArena"),
 	Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaPlayerController_h__Script_ProtocolRiftArena_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaPlayerController_h__Script_ProtocolRiftArena_Statics::ClassInfo),
 	nullptr, 0,

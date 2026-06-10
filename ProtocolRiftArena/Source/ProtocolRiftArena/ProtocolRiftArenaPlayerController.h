@@ -40,6 +40,11 @@ protected:
 	UPROPERTY(EditAnywhere, Config, Category = "Input|Touch Controls")
 	bool bForceTouchControls = false;
 
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category="UI")
+	TSubclassOf<UUserWidget> HUDWidgetClass;
+	UPROPERTY(BlueprintReadOnly, Category = "UI")
+	TObjectPtr<UUserWidget> HUDWidget;
+
 	/** Gameplay initialization */
 	virtual void BeginPlay() override;
 

@@ -620,8 +620,8 @@ void AProtocolRiftArenaCharacter::EquipWeapon(APRAWeaponBase* NewWeapon)
 	}
 	
 	CurrentWeapon = NewWeapon;
-
 	AttachCurrentWeaponToMesh();
+	OnCurrentWeaponChanged.Broadcast(CurrentWeapon);
 }
 
 void AProtocolRiftArenaCharacter::DoFireStart()
@@ -794,6 +794,7 @@ void AProtocolRiftArenaCharacter::OnRep_CurrentWeapon()
 		HasAuthority(),
 		IsLocallyControlled());
 	AttachCurrentWeaponToMesh();
+	OnCurrentWeaponChanged.Broadcast(CurrentWeapon);
 }
 
 void AProtocolRiftArenaCharacter::ServerSetWantsToAim_Implementation(bool bNewWantsToAim)

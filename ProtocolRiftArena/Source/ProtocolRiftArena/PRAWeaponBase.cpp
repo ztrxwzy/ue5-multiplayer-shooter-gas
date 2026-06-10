@@ -11,6 +11,7 @@
 #include "GameplayEffect.h"
 #include "GameplayEffectTypes.h"
 #include "PRAGameplayTags.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 APRAWeaponBase::APRAWeaponBase()
@@ -40,6 +41,12 @@ void APRAWeaponBase::BeginPlay()
 		HasAuthority(),
 		GetIsReplicated());
 
+	if(HasAuthority())
+	{
+		CurrentAmmo = MaxAmmo;
+		NotifyAmmoChanged();
+	}
+
 }
 
 void APRAWeaponBase::StartFire()
@@ -67,7 +74,7 @@ void APRAWeaponBase::StartFire()
 	const FVector TraceDirection = Camera->GetForwardVector();
 	if(HasAuthority())
 	{
-		FireTrace(TraceStart, TraceDirection);
+		TryFire(TraceStart, TraceDirection);
 	}
 
 	if(!HasAuthority())
@@ -162,7 +169,7 @@ void APRAWeaponBase::ServerStartFire_Implementation(const FVector_NetQuantize Tr
 		*GetNameSafe(GetOwner()),
 		HasAuthority());
 
-	FireTrace(TraceStart, TraceDirection);
+	TryFire(TraceStart, TraceDirection);
 }
 
 void APRAWeaponBase::ApplyDamageToHitActor(const FHitResult& HitResult)
@@ -227,3 +234,85 @@ void APRAWeaponBase::ApplyDamageToHitActor(const FHitResult& HitResult)
 	);
 }
 
+float APRAWeaponBase::GetFireInterval() const
+{
+	return FireRate > 0.0f ? 60.0f / FireRate : 0.0f;
+}
+
+bool APRAWeaponBase::CanFire() const
+{
+	const UWorld* World = GetWorld();
+	if (!World)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Weapon Fire failed: no valid world."));
+		return false;
+	}
+
+	if(!HasAmmo())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot fire: no ammo."));
+		return false;
+	}
+
+	const float CurrentTime = World->GetTimeSeconds();
+
+	return CurrentTime >= LastFireTime + GetFireInterval();
+}
+
+void APRAWeaponBase::TryFire(const FVector& TraceStart, const FVector& TraceDirection)
+{
+	if(!HasAuthority())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("TryFire called on client."));
+		return;
+	}
+
+	if(!CanFire())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Fire blocked | Ammo: %d/%d"), CurrentAmmo, MaxAmmo);
+		return;
+	}
+
+	ConsumeAmmo();
+	LastFireTime = GetWorld()->GetTimeSeconds();
+	FireTrace(TraceStart, TraceDirection);
+	UE_LOG(LogTemp, Warning, TEXT("Weapon Fired | Weapon: %s | Owner: %s | Time: %.2f | Ammo: %d/%d"),
+		*GetNameSafe(this),
+		*GetNameSafe(GetOwner()),
+		LastFireTime,
+		CurrentAmmo,
+		MaxAmmo
+	);
+}
+
+void APRAWeaponBase::ConsumeAmmo()
+{
+	if (!HasAuthority())
+	{
+		return;
+	}
+
+	CurrentAmmo = FMath::Clamp(CurrentAmmo - 1, 0, MaxAmmo);
+	NotifyAmmoChanged();
+}
+
+void APRAWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(APRAWeaponBase, CurrentAmmo);
+}
+
+void APRAWeaponBase::OnRep_CurrentAmmo()
+{
+	UE_LOG(LogTemp, Warning, TEXT("OnRep_CurrentAmmo | Weapon: %s | Owner: %s | CurrentAmmo: %d"),
+		*GetNameSafe(this),
+		*GetNameSafe(GetOwner()),
+		CurrentAmmo
+	);
+	NotifyAmmoChanged();
+}
+
+void APRAWeaponBase::NotifyAmmoChanged()
+{
+	OnAmmoChanged.Broadcast(CurrentAmmo, MaxAmmo);
+}

@@ -125,13 +125,7 @@
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcameramanager.generated.h",
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcharacter.gen.cpp",
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\variant_sidescrolling\\sidescrollingcharacter.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcharacter.generated.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollinggamemode.gen.cpp",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\variant_sidescrolling\\sidescrollinggamemode.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollinggamemode.generated.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollinginteractable.gen.cpp",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\variant_sidescrolling\\interfaces\\sidescrollinginteractable.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollinginteractable.generated.h"
+            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcharacter.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

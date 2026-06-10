@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "PRAWeaponBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoChangedSignature, int32, CurrentAmmo, int32, MaxAmmo);
+
 class USkeletalMeshComponent;
 class AProtocolRiftArenaCharacter;
 class UGameplayEffect;
@@ -36,6 +38,12 @@ protected:
 	float FireRate = 600.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapons|Stats")
 	float TraceRange = 10000.0f;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Weapons|Fire")
+	float LastFireTime = -999.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapons|Ammo")
+	int32 MaxAmmo = 30;
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_CurrentAmmo, BlueprintReadOnly, Category = "Weapons|Ammo")
+	int32 CurrentAmmo;
 	
 public:	
 	UFUNCTION(BlueprintPure, Category = "Weapon|Stats")
@@ -55,11 +63,28 @@ public:
 	UFUNCTION(Server, Reliable)
 	void ServerStartFire(FVector_NetQuantize TraceStart, FVector_NetQuantizeNormal TraceDirection);
 	void FireTrace(const FVector& TraceStart, const FVector& TraceDirection);
+	UFUNCTION(BlueprintPure, Category = "Weapon|Fire")
+	float GetFireInterval() const;
+	UFUNCTION(BlueprintPure, Category = "Weapon|Fire")
+	bool CanFire() const;
+	UFUNCTION(BlueprintPure, Category = "Weapon|Ammo")
+	int32 GetMaxAmmo() const { return MaxAmmo; }
+	UFUNCTION(BlueprintPure, Category = "Weapon|Ammo")
+	int32 GetCurrentAmmo() const { return CurrentAmmo; }
+	UFUNCTION(BlueprintCallable, Category = "Weapon|Ammo")
+	bool HasAmmo() const { return CurrentAmmo > 0; }
+	UFUNCTION()
+	void OnRep_CurrentAmmo();
+	UPROPERTY(BlueprintAssignable, Category = "Weapon|Ammo")
+	FOnAmmoChangedSignature OnAmmoChanged;
 
 protected: 
 	virtual void Fire();
 	AProtocolRiftArenaCharacter* GetOwningCharacter() const;
 	virtual void BeginPlay() override;
 	void ApplyDamageToHitActor(const FHitResult& HitResult);
-
+	void TryFire(const FVector& TraceStart, const FVector& TraceDirection);
+	void ConsumeAmmo();
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	void NotifyAmmoChanged();
 };

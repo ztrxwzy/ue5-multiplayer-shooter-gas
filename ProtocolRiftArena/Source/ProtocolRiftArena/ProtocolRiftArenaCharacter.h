@@ -9,6 +9,8 @@
 #include "GameplayTagContainer.h"
 #include "ProtocolRiftArenaCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCurrentWeaponChangedSignature, APRAWeaponBase*, NewWeapon);
+
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
@@ -119,6 +121,8 @@ protected:
 	APRAWeaponBase* CurrentWeapon = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	FName WeaponAttachSocketName = TEXT("hand_rSocket");
+	UPROPERTY(BlueprintAssignable, Category = "Weapon")
+	FOnCurrentWeaponChangedSignature OnCurrentWeaponChanged;
 
 	/** Ability System Interface */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
@@ -277,12 +281,15 @@ public:
 	UFUNCTION()
 	void OnRep_CurrentWeapon();
 	void AttachCurrentWeaponToMesh();
+	UFUNCTION(BlueprintPure, Category = "Weapon")
+	APRAWeaponBase* GetCurrentWeapon() const { return CurrentWeapon; }
 
 	/** Ability System Interface */
 	UFUNCTION(BlueprintPure, Category = "GAS")
 	UPRAAttributeSet* GetAttributeSet() const { return AttributeSet; }
 	UFUNCTION(BlueprintPure, Category = "GAS|Death")
 	bool IsDead() const;
+
 
 public:
 

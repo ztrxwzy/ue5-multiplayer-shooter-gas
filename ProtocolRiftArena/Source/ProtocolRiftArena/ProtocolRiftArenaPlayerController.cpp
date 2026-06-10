@@ -13,8 +13,12 @@ void AProtocolRiftArenaPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (!IsLocalController())
+	{
+		return;
+	}
 	// only spawn touch controls on local player controllers
-	if (ShouldUseTouchControls() && IsLocalPlayerController())
+	if (ShouldUseTouchControls())
 	{
 		// spawn the mobile controls widget
 		MobileControlsWidget = CreateWidget<UUserWidget>(this, MobileControlsWidgetClass);
@@ -31,6 +35,19 @@ void AProtocolRiftArenaPlayerController::BeginPlay()
 		}
 
 	}
+
+	if (!HUDWidgetClass)
+	{
+		UE_LOG(LogProtocolRiftArena, Error, TEXT("No HUD widget class set on player controller."));
+	}
+
+	HUDWidget = CreateWidget<UUserWidget>(this, HUDWidgetClass);
+	if(!HUDWidget)
+	{
+		UE_LOG(LogProtocolRiftArena, Error, TEXT("Could not spawn HUD widget."));
+	}
+
+	HUDWidget->AddToViewport();
 }
 
 void AProtocolRiftArenaPlayerController::SetupInputComponent()
