@@ -36,10 +36,10 @@
 			"ProtocolRiftArenaGameMode.gen.cpp.obj",
 			"ProtocolRiftArenaPlayerController.gen.cpp.obj",
 			"SideScrollingAIController.gen.cpp.obj",
-			"SideScrollingCameraManager.gen.cpp.obj",
-			"SideScrollingCharacter.gen.cpp.obj"
+			"SideScrollingCameraManager.gen.cpp.obj"
 		],
 		"Module.ProtocolRiftArena.3.cpp.obj": [
+			"SideScrollingCharacter.gen.cpp.obj",
 			"SideScrollingGameMode.gen.cpp.obj",
 			"SideScrollingInteractable.gen.cpp.obj",
 			"SideScrollingJumpPad.gen.cpp.obj",
@@ -55,6 +55,7 @@
 			"PRAGameplayTags.cpp.obj",
 			"ProtocolRiftArena.cpp.obj",
 			"ProtocolRiftArenaGameMode.cpp.obj",
+			"ProtocolRiftArenaPlayerController.cpp.obj",
 			"CombatAIController.cpp.obj",
 			"CombatEnemy.cpp.obj",
 			"CombatEnemySpawner.cpp.obj",
@@ -94,8 +95,7 @@
 			"SideScrollingPlayerController.cpp.obj",
 			"SideScrollingUI.cpp.obj",
 			"PRAWeaponBase.cpp.obj",
-			"ProtocolRiftArenaCharacter.cpp.obj",
-			"ProtocolRiftArenaPlayerController.cpp.obj"
+			"ProtocolRiftArenaCharacter.cpp.obj"
 		]
 	}
 }

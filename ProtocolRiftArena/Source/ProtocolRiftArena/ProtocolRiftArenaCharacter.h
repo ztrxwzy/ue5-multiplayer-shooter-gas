@@ -73,6 +73,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* FireAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* ReloadAction;
 
 	/** Movement System */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
@@ -123,6 +125,8 @@ protected:
 	FName WeaponAttachSocketName = TEXT("hand_rSocket");
 	UPROPERTY(BlueprintAssignable, Category = "Weapon")
 	FOnCurrentWeaponChangedSignature OnCurrentWeaponChanged;
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void DoReload();
 
 	/** Ability System Interface */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
@@ -196,6 +200,8 @@ protected:
 	/** Initializes GAS attributes using the default attributes GameplayEffect */
 	void InitializeAttributes();
 
+	/** Returns true if the character is currently reloading their weapon */
+	bool IsReloadingWeapon() const;
 public:
 	/** Handles the character's death */
 	void HandleDeath();

@@ -248,6 +248,12 @@ bool APRAWeaponBase::CanFire() const
 		return false;
 	}
 
+	if (bIsReloading)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot fire: currently reloading."));
+		return false;
+	}
+
 	if(!HasAmmo())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Cannot fire: no ammo."));
@@ -300,6 +306,7 @@ void APRAWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(APRAWeaponBase, CurrentAmmo);
+	DOREPLIFETIME(APRAWeaponBase, bIsReloading);
 }
 
 void APRAWeaponBase::OnRep_CurrentAmmo()
@@ -315,4 +322,70 @@ void APRAWeaponBase::OnRep_CurrentAmmo()
 void APRAWeaponBase::NotifyAmmoChanged()
 {
 	OnAmmoChanged.Broadcast(CurrentAmmo, MaxAmmo);
+}
+
+bool APRAWeaponBase::CanReload() const
+{
+	if(bIsReloading)
+	{
+		return false;
+	}
+
+	if(CurrentAmmo >= MaxAmmo)
+	{
+		return false;
+	}
+
+	AProtocolRiftArenaCharacter* OwningCharacter = GetOwningCharacter();
+	if (!OwningCharacter)
+	{
+		return false;
+	}
+	if(OwningCharacter->IsDead())
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void APRAWeaponBase::StartReload()
+{
+	if (HasAuthority())
+	{
+		if(CanReload())
+		{
+			bIsReloading = true;
+			GetWorldTimerManager().SetTimer(ReloadTimerHandle, this, &APRAWeaponBase::FinishReload, ReloadDuration, false);
+		}
+
+		return;
+	}
+
+	ServerStartReload();
+}
+
+void APRAWeaponBase::ServerStartReload_Implementation()
+{
+	StartReload();
+}
+
+void APRAWeaponBase::FinishReload()
+{
+	if (!HasAuthority())
+	{
+		return;
+	}
+	bIsReloading = false;
+	CurrentAmmo = MaxAmmo;
+	NotifyAmmoChanged();
+}
+
+void APRAWeaponBase::OnRep_IsReloading()
+{
+	UE_LOG(LogTemp, Warning, TEXT("OnRep_IsReloading | Weapon: %s | Owner: %s | IsReloading: %d"),
+		*GetNameSafe(this),
+		*GetNameSafe(GetOwner()),
+		bIsReloading
+	);
 }

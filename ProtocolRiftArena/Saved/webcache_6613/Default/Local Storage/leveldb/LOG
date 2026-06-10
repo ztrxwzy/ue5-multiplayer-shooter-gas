@@ -1,3 +1,5 @@
-2026/06/10-09:01:50.676 3598 Reusing MANIFEST E:\Videogames\ue5-multiplayer-shooter-gas\ProtocolRiftArena\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
-2026/06/10-09:01:50.684 3598 Recovering log #36
-2026/06/10-09:01:50.723 3598 Reusing old log E:\Videogames\ue5-multiplayer-shooter-gas\ProtocolRiftArena\Saved\webcache_6613\Default\Local Storage\leveldb/000036.log 
+2026/06/10-17:38:41.384 2c1c Reusing MANIFEST E:\Videogames\ue5-multiplayer-shooter-gas\ProtocolRiftArena\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
+2026/06/10-17:38:41.389 2c1c Recovering log #36
+2026/06/10-17:38:41.389 2c1c Level-0 table #40: started
+2026/06/10-17:38:41.432 2c1c Level-0 table #40: 71298 bytes OK
+2026/06/10-17:38:41.463 2c1c Delete type=0 #36

@@ -122,10 +122,7 @@
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingaicontroller.generated.h",
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcameramanager.gen.cpp",
             "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\variant_sidescrolling\\sidescrollingcameramanager.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcameramanager.generated.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcharacter.gen.cpp",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\source\\protocolriftarena\\variant_sidescrolling\\sidescrollingcharacter.h",
-            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcharacter.generated.h"
+            "e:\\videogames\\ue5-multiplayer-shooter-gas\\protocolriftarena\\intermediate\\build\\win64\\unrealeditor\\inc\\protocolriftarena\\uht\\sidescrollingcameramanager.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

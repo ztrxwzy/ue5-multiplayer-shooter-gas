@@ -154,6 +154,9 @@ void AProtocolRiftArenaCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 		//Fire
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoFireStart);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Completed, this, &AProtocolRiftArenaCharacter::DoFireEnd);
+
+		//Reload
+		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoReload);
 	}
 	else
 	{
@@ -326,6 +329,10 @@ bool AProtocolRiftArenaCharacter::HasMovementInput() const
 
 bool AProtocolRiftArenaCharacter::CanSprint() const
 {
+	if (IsReloadingWeapon())
+	{
+		return false;
+	}
 	if (bIsCrouched)
 	{
 		return false;
@@ -487,6 +494,10 @@ void AProtocolRiftArenaCharacter::DoAimEnd()
 
 bool AProtocolRiftArenaCharacter::CanAim() const
 {
+	if (IsReloadingWeapon())
+	{
+		return false;
+	}
 	if (bIsSprinting)
 	{
 		return false;
@@ -670,6 +681,25 @@ void AProtocolRiftArenaCharacter::AttachCurrentWeaponToMesh()
 		IsLocallyControlled());	
 
 	CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponAttachSocketName);
+}
+
+void AProtocolRiftArenaCharacter::DoReload()
+{
+	if (IsDead())
+	{
+		return;
+	}
+	if (!CurrentWeapon)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attempted to reload weapon while no weapon is equipped on %s."), *GetNameSafe(this));
+		return;
+	}
+	CurrentWeapon->StartReload();
+}
+
+bool AProtocolRiftArenaCharacter::IsReloadingWeapon() const
+{
+	return CurrentWeapon && CurrentWeapon->IsReloading();
 }
 
 // ============================================================================

@@ -58,7 +58,8 @@ PROTOCOLRIFTARENA_API void FOnCurrentWeaponChangedSignature_DelegateWrapper(cons
 	DECLARE_FUNCTION(execDoJumpEnd); \
 	DECLARE_FUNCTION(execDoJumpStart); \
 	DECLARE_FUNCTION(execDoLook); \
-	DECLARE_FUNCTION(execDoMove);
+	DECLARE_FUNCTION(execDoMove); \
+	DECLARE_FUNCTION(execDoReload);
 
 
 #define FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h_34_CALLBACK_WRAPPERS

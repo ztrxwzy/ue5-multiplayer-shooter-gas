@@ -44,7 +44,14 @@ protected:
 	int32 MaxAmmo = 30;
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_CurrentAmmo, BlueprintReadOnly, Category = "Weapons|Ammo")
 	int32 CurrentAmmo;
-	
+	UPROPERTY(BlueprintAssignable, Category = "Weapon|Ammo")
+	FOnAmmoChangedSignature OnAmmoChanged;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon|Reload")
+	float ReloadDuration = 1.5f;
+	UPROPERTY(ReplicatedUsing = OnRep_IsReloading, BlueprintReadOnly, Category = "Weapon|Reload")
+	bool bIsReloading;
+
+	FTimerHandle ReloadTimerHandle;
 public:	
 	UFUNCTION(BlueprintPure, Category = "Weapon|Stats")
 	float GetDamage() const { return Damage; }
@@ -75,8 +82,14 @@ public:
 	bool HasAmmo() const { return CurrentAmmo > 0; }
 	UFUNCTION()
 	void OnRep_CurrentAmmo();
-	UPROPERTY(BlueprintAssignable, Category = "Weapon|Ammo")
-	FOnAmmoChangedSignature OnAmmoChanged;
+	UFUNCTION(BlueprintCallable, Category = "Weapon|Reload")
+	void StartReload();
+	UFUNCTION(BlueprintPure, Category = "Weapon|Reload")
+	bool CanReload() const;
+	UFUNCTION(BlueprintPure, Category = "Weapon|Reload")
+	bool IsReloading() const { return bIsReloading; }
+	UFUNCTION(Server,Reliable)
+	void ServerStartReload();
 
 protected: 
 	virtual void Fire();
@@ -87,4 +100,7 @@ protected:
 	void ConsumeAmmo();
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void NotifyAmmoChanged();
+	void FinishReload();
+	UFUNCTION()
+	void OnRep_IsReloading();
 };
