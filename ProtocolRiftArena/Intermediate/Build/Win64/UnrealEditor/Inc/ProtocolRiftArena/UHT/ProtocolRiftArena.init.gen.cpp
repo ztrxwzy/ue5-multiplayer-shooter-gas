@@ -25,7 +25,7 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 			SingletonFuncArray,
 			UE_ARRAY_COUNT(SingletonFuncArray),
 			PKG_CompiledIn | 0x00000000,
-			0xE5E4FD82,
+			0x531EB71E,
 			0x3D24BE72,
 			METADATA_PARAMS(0, nullptr)
 		};
@@ -33,5 +33,5 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 	}
 	return Z_Registration_Info_UPackage__Script_ProtocolRiftArena.OuterSingleton;
 }
-static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_ProtocolRiftArena(Z_Construct_UPackage__Script_ProtocolRiftArena, TEXT("/Script/ProtocolRiftArena"), Z_Registration_Info_UPackage__Script_ProtocolRiftArena, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xE5E4FD82, 0x3D24BE72));
+static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_ProtocolRiftArena(Z_Construct_UPackage__Script_ProtocolRiftArena, TEXT("/Script/ProtocolRiftArena"), Z_Registration_Info_UPackage__Script_ProtocolRiftArena, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x531EB71E, 0x3D24BE72));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

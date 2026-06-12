@@ -13,4 +13,30 @@ namespace PRAGameplayTags
 		static const FGameplayTag Tag = FGameplayTag::RequestGameplayTag(TEXT("State.Death"));
 		return Tag;
 	}
+
+
+	FGameplayTag GameplayCue_Weapon_Impact_Default()
+	{
+		return FGameplayTag::RequestGameplayTag(TEXT("GameplayCue.Weapon.Impact.Default"));
+	}
+
+	FGameplayTag GameplayCue_Weapon_Impact_Concrete()
+	{
+		return FGameplayTag::RequestGameplayTag(TEXT("GameplayCue.Weapon.Impact.Concrete"));
+	}
+
+	FGameplayTag GameplayCue_Weapon_Impact_Glass()
+	{
+		return FGameplayTag::RequestGameplayTag(TEXT("GameplayCue.Weapon.Impact.Glass"));
+	}
+
+	FGameplayTag GameplayCue_Weapon_Impact_Metal()
+	{
+		return FGameplayTag::RequestGameplayTag(TEXT("GameplayCue.Weapon.Impact.Metal"));
+	}
+
+	FGameplayTag GameplayCue_Weapon_Impact_Wood()
+	{
+		return FGameplayTag::RequestGameplayTag(TEXT("GameplayCue.Weapon.Impact.Wood"));
+	}
 }

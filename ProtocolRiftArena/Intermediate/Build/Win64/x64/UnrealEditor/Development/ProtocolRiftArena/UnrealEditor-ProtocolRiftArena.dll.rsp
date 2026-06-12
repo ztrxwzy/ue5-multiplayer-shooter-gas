@@ -37,12 +37,13 @@
 /NOIMPLIB
 /NOEXP
 /NATVIS:"../Plugins/Runtime/StateTree/Intermediate/Build/Win64/x64/UnrealEditor/Development/StateTreeModule/StateTree.natvis"
+/NATVIS:"../Plugins/FX/Niagara/Intermediate/Build/Win64/x64/UnrealEditor/Development/Niagara/Niagara.natvis"
 "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/x64/ProtocolRiftArenaEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.obj"
 "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/x64/UnrealEditor/Development/ProtocolRiftArena/Module.ProtocolRiftArena.1.cpp.obj"
 "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/x64/UnrealEditor/Development/ProtocolRiftArena/Module.ProtocolRiftArena.2.cpp.obj"
 "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/x64/UnrealEditor/Development/ProtocolRiftArena/Module.ProtocolRiftArena.3.cpp.obj"
+"E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/x64/UnrealEditor/Development/ProtocolRiftArena/PRAGameplayTags.cpp.obj"
 "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/x64/UnrealEditor/Development/ProtocolRiftArena/PRAWeaponBase.cpp.obj"
-"E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/x64/UnrealEditor/Development/ProtocolRiftArena/ProtocolRiftArenaCharacter.cpp.obj"
 "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/x64/UnrealEditor/Development/ProtocolRiftArena/Default.rc2.res"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/Core/UnrealEditor-Core.lib"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/CoreUObject/UnrealEditor-CoreUObject.lib"
@@ -57,6 +58,7 @@
 "../Plugins/Runtime/GameplayAbilities/Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayAbilities/UnrealEditor-GameplayAbilities.lib"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayTags/UnrealEditor-GameplayTags.lib"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayTasks/UnrealEditor-GameplayTasks.lib"
+"../Plugins/FX/Niagara/Intermediate/Build/Win64/x64/UnrealEditor/Development/Niagara/UnrealEditor-Niagara.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"

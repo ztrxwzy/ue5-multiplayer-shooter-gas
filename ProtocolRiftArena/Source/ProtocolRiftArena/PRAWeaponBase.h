@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameplayTagContainer.h"
+#include "GameFramework/Actor.h"
 #include "PRAWeaponBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoChangedSignature, int32, CurrentAmmo, int32, MaxAmmo);
@@ -11,6 +13,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoChangedSignature, int32, Cur
 class USkeletalMeshComponent;
 class AProtocolRiftArenaCharacter;
 class UGameplayEffect;
+class UNiagaraSystem;
+class USoundBase;
 
 UCLASS()
 class PROTOCOLRIFTARENA_API APRAWeaponBase : public AActor
@@ -50,8 +54,12 @@ protected:
 	float ReloadDuration = 1.5f;
 	UPROPERTY(ReplicatedUsing = OnRep_IsReloading, BlueprintReadOnly, Category = "Weapon|Reload")
 	bool bIsReloading;
-
 	FTimerHandle ReloadTimerHandle;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon|FX")
+	UNiagaraSystem* MuzzleFlashEffect;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon|FX")
+	USoundBase* FireSound;
+
 public:	
 	UFUNCTION(BlueprintPure, Category = "Weapon|Stats")
 	float GetDamage() const { return Damage; }
@@ -88,8 +96,12 @@ public:
 	bool CanReload() const;
 	UFUNCTION(BlueprintPure, Category = "Weapon|Reload")
 	bool IsReloading() const { return bIsReloading; }
+	UFUNCTION()
+	void OnRep_IsReloading();
 	UFUNCTION(Server,Reliable)
 	void ServerStartReload();
+	UFUNCTION(NetMulticast,Unreliable)
+	void MulticastPlayFireCosmetics();
 
 protected: 
 	virtual void Fire();
@@ -101,6 +113,7 @@ protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void NotifyAmmoChanged();
 	void FinishReload();
-	UFUNCTION()
-	void OnRep_IsReloading();
+	void PlayFireCosmetics();
+	void ExecuteImpactGameplayCue(const FHitResult& HitResult);
+	FGameplayTag DetermineImpactCueTag(const FHitResult& HitResult) const;
 };

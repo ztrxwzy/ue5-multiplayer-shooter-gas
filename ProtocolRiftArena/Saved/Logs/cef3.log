@@ -1,7 +1,45 @@
-[15536:31024:0610/173841.280:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
-[15536:31024:0610/173841.338:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
-[19840:30088:0610/173845.328:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-CE049BD896D9809ABF1038754ECA1367 will be ignored
-[15536:33996:0610/173848.674:ERROR:cast_crl.cc(443)] CRL - Verification failed.
-[15536:33996:0610/173848.852:ERROR:cast_crl.cc(443)] CRL - Verification failed.
-[15536:31024:0610/173851.113:ERROR:device_event_log_impl.cc(196)] [17:38:50.774] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
-[15536:31024:0610/180339.416:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.
+[5108:14040:0612/091121.656:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[5108:14040:0612/091127.206:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[8904:23892:0612/091152.127:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-0D9DCD9FBAD00CB387BB8BC84B733BB4 will be ignored
+[5108:14040:0612/091152.760:ERROR:device_event_log_impl.cc(196)] [09:11:52.128] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[10500:23392:0612/091152.906:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 6-05DA079A913D4B1332DADDF31B5AA758 will be ignored
+[5108:10704:0612/091155.046:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/092949.226:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/093748.196:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/093808.781:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/093933.114:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/094008.784:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/094101.262:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/094133.324:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/094216.234:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/094307.954:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/095348.933:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/095421.796:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/095528.453:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/095705.235:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/095807.296:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/095903.638:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/095931.321:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/100004.002:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/100106.039:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/100139.630:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:14040:0612/101835.168:ERROR:menu_runner_views_aura.cc(24)] Window handle is required for default OSR context menu.
+[5108:14040:0612/101835.168:ERROR:menu_manager.cc(198)] Default context menu implementation is not available; canceling the menu
+[5108:10704:0612/101949.401:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102015.894:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102116.556:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102203.550:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102301.469:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102428.574:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102515.984:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102549.048:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102737.504:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/102950.301:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/103015.975:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/103048.650:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/103159.285:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/103240.146:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:10704:0612/103548.712:ERROR:cast_crl.cc(443)] CRL - Verification failed.
+[5108:14040:0612/115830.280:ERROR:device_event_log_impl.cc(196)] [11:58:30.265] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[5108:14040:0612/142321.441:ERROR:device_event_log_impl.cc(196)] [14:23:21.262] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: No se ha encontrado el elemento. (0x490)
+[5108:14040:0612/142843.874:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.

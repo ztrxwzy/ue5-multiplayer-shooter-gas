@@ -12,6 +12,12 @@
 #include "GameplayEffectTypes.h"
 #include "PRAGameplayTags.h"
 #include "Net/UnrealNetwork.h"
+#include "Kismet/GameplayStatics.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
+#include "Sound/SoundBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "PhysicalMaterials/PhysicalMaterial.h"
 
 // Sets default values
 APRAWeaponBase::APRAWeaponBase()
@@ -133,13 +139,16 @@ void APRAWeaponBase::FireTrace(const FVector& TraceStart, const FVector& TraceDi
 	QueryParams.AddIgnoredActor(this);
 	QueryParams.AddIgnoredActor(OwningCharacter);
 	QueryParams.bTraceComplex = true;
+	QueryParams.bReturnPhysicalMaterial = true;
 
 	const bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility, QueryParams);
-	UE_LOG(LogTemp, Warning, TEXT("Trace Hit Details | Actor: %s | Component: %s | ActorClass: %s | ComponentClass: %s"),
+	UE_LOG(LogTemp, Warning, TEXT("Trace Hit Details | Actor: %s | Component: %s | ActorClass: %s | ComponentClass: %s | PhysMat: %s | SurfaceType: %d"),
 		*GetNameSafe(HitResult.GetActor()),
 		*GetNameSafe(HitResult.GetComponent()),
 		*GetNameSafe(HitResult.GetActor() ? HitResult.GetActor()->GetClass() : nullptr),
-		*GetNameSafe(HitResult.GetComponent() ? HitResult.GetComponent()->GetClass() : nullptr)
+		*GetNameSafe(HitResult.GetComponent() ? HitResult.GetComponent()->GetClass() : nullptr),
+		*GetNameSafe(HitResult.PhysMaterial.Get()),
+		static_cast<int32>(UGameplayStatics::GetSurfaceType(HitResult))
 	);
 
 	const FVector DebugEnd = bHit ? HitResult.ImpactPoint : TraceEnd;
@@ -150,6 +159,7 @@ void APRAWeaponBase::FireTrace(const FVector& TraceStart, const FVector& TraceDi
 		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 12, FColor::Green, false, 2.0f);
 		UE_LOG(LogTemp, Log, TEXT("Server Weapon hit: %s"), *HitResult.GetActor()->GetName());
 		ApplyDamageToHitActor(HitResult);
+		ExecuteImpactGameplayCue(HitResult);
 	}
 	else
 	{
@@ -282,6 +292,7 @@ void APRAWeaponBase::TryFire(const FVector& TraceStart, const FVector& TraceDire
 	ConsumeAmmo();
 	LastFireTime = GetWorld()->GetTimeSeconds();
 	FireTrace(TraceStart, TraceDirection);
+	MulticastPlayFireCosmetics();
 	UE_LOG(LogTemp, Warning, TEXT("Weapon Fired | Weapon: %s | Owner: %s | Time: %.2f | Ammo: %d/%d"),
 		*GetNameSafe(this),
 		*GetNameSafe(GetOwner()),
@@ -388,4 +399,98 @@ void APRAWeaponBase::OnRep_IsReloading()
 		*GetNameSafe(GetOwner()),
 		bIsReloading
 	);
+}
+
+void APRAWeaponBase::PlayFireCosmetics()
+{
+	if (GetNetMode() == NM_DedicatedServer)
+	{
+		return;
+	}
+	if (MuzzleFlashEffect && MuzzlePoint)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAttached(MuzzleFlashEffect, MuzzlePoint, NAME_None, FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::SnapToTarget, true);
+
+	}
+
+	if (FireSound && MuzzlePoint)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, MuzzlePoint->GetComponentLocation());
+	}
+}
+
+void APRAWeaponBase::MulticastPlayFireCosmetics_Implementation()
+{
+	PlayFireCosmetics();
+}
+
+FGameplayTag APRAWeaponBase::DetermineImpactCueTag(const FHitResult& HitResult) const
+{
+	const EPhysicalSurface SurfaceType = UGameplayStatics::GetSurfaceType(HitResult);
+
+	switch (SurfaceType)
+	{
+	case SurfaceType1:
+		return PRAGameplayTags::GameplayCue_Weapon_Impact_Concrete();
+	case SurfaceType2:
+		return PRAGameplayTags::GameplayCue_Weapon_Impact_Glass();
+	case SurfaceType3:
+		return PRAGameplayTags::GameplayCue_Weapon_Impact_Metal();
+	case SurfaceType4:
+		return PRAGameplayTags::GameplayCue_Weapon_Impact_Wood();
+	default:
+		return PRAGameplayTags::GameplayCue_Weapon_Impact_Default();
+	}
+}
+
+void APRAWeaponBase::ExecuteImpactGameplayCue(const FHitResult& HitResult)
+{
+	if (!HasAuthority())
+	{
+		return;
+	}
+
+	AProtocolRiftArenaCharacter* OwningCharacter = GetOwningCharacter();
+
+	if(!OwningCharacter)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Impact Cue failed: no owning character."));
+		return;
+	}
+
+	UAbilitySystemComponent* SourceASC = OwningCharacter->GetAbilitySystemComponent();
+	if (!SourceASC)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Impact Cue failed: no source ASC"));
+		return;
+	}
+
+	const FGameplayTag ImpactCueTag = DetermineImpactCueTag(HitResult);
+	if (!ImpactCueTag.IsValid())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Impact Cue failed: invalid cue tag"));
+		return;
+	}
+
+	FGameplayEffectContextHandle EffectContext = SourceASC->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+	EffectContext.AddHitResult(HitResult);
+
+	FGameplayCueParameters CueParams;
+	CueParams.Location = HitResult.ImpactPoint;
+	CueParams.Normal = HitResult.ImpactNormal;
+	CueParams.PhysicalMaterial = HitResult.PhysMaterial.Get();
+	CueParams.EffectContext = EffectContext;
+	CueParams.Instigator = OwningCharacter;
+	CueParams.EffectCauser = this;
+	CueParams.SourceObject = this;
+	CueParams.TargetAttachComponent = HitResult.GetComponent();
+	UE_LOG(LogTemp, Warning, TEXT("Executing Impact GameplayCue | Tag: %s | Location: %s | Normal: %s | PhysMat: %s"),
+		*ImpactCueTag.ToString(),
+		*CueParams.Location.ToString(),
+		*CueParams.Normal.ToString(),
+		*GetNameSafe(HitResult.PhysMaterial.Get())
+	);
+
+	SourceASC->ExecuteGameplayCue(ImpactCueTag, CueParams);
 }
