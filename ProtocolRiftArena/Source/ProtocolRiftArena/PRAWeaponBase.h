@@ -8,13 +8,12 @@
 #include "GameFramework/Actor.h"
 #include "PRAWeaponBase.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoChangedSignature, int32, CurrentAmmo, int32, MaxAmmo);
-
 class USkeletalMeshComponent;
 class AProtocolRiftArenaCharacter;
 class UGameplayEffect;
 class UNiagaraSystem;
 class USoundBase;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoChangedSignature, int32, CurrentAmmo, int32, MaxAmmo);
 
 UCLASS()
 class PROTOCOLRIFTARENA_API APRAWeaponBase : public AActor
@@ -61,31 +60,20 @@ protected:
 	USoundBase* FireSound;
 
 public:	
-	UFUNCTION(BlueprintPure, Category = "Weapon|Stats")
-	float GetDamage() const { return Damage; }
-	UFUNCTION(BlueprintPure, Category = "Weapon|Stats")
-	float GetFireRate() const { return FireRate; }
+	UFUNCTION(BlueprintPure, Category = "Weapon|Damage")
+	TSubclassOf<UGameplayEffect> GetDamageEffect() const { return DamageEffect; }
+	UFUNCTION(BlueprintPure,Category="Weapon|Damage")
+	float GetDamage() const { return Damage; };
 	UFUNCTION(BlueprintPure, Category = "Weapon|Stats")
 	float GetTraceRange() const { return TraceRange; }
-	UFUNCTION(BlueprintPure, Category = "Weapon")
-	USceneComponent* GetMuzzlePoint() const { return MuzzlePoint; }
-	UFUNCTION(BlueprintPure, Category = "Weapon")
-	USkeletalMeshComponent* GetWeaponMesh() const { return WeaponMesh; }
-	UFUNCTION(BlueprintCallable, Category = "Weapon|Fire")
-	virtual void StartFire();
-	UFUNCTION(BlueprintCallable, Category = "Weapon|Fire")
-	virtual void StopFire();
-	UFUNCTION(Server, Reliable)
-	void ServerStartFire(FVector_NetQuantize TraceStart, FVector_NetQuantizeNormal TraceDirection);
-	void FireTrace(const FVector& TraceStart, const FVector& TraceDirection);
 	UFUNCTION(BlueprintPure, Category = "Weapon|Fire")
 	float GetFireInterval() const;
-	UFUNCTION(BlueprintPure, Category = "Weapon|Fire")
-	bool CanFire() const;
 	UFUNCTION(BlueprintPure, Category = "Weapon|Ammo")
 	int32 GetMaxAmmo() const { return MaxAmmo; }
 	UFUNCTION(BlueprintPure, Category = "Weapon|Ammo")
 	int32 GetCurrentAmmo() const { return CurrentAmmo; }
+	UFUNCTION(BlueprintPure, Category = "Weapon|Fire")
+	float GetLastFireTime() const { return LastFireTime; }
 	UFUNCTION(BlueprintCallable, Category = "Weapon|Ammo")
 	bool HasAmmo() const { return CurrentAmmo > 0; }
 	UFUNCTION()
@@ -100,20 +88,13 @@ public:
 	void OnRep_IsReloading();
 	UFUNCTION(Server,Reliable)
 	void ServerStartReload();
-	UFUNCTION(NetMulticast,Unreliable)
-	void MulticastPlayFireCosmetics();
+	bool ConsumeAmmo(int32 Amount = 1);
+	void MarkFired();
 
 protected: 
-	virtual void Fire();
 	AProtocolRiftArenaCharacter* GetOwningCharacter() const;
 	virtual void BeginPlay() override;
-	void ApplyDamageToHitActor(const FHitResult& HitResult);
-	void TryFire(const FVector& TraceStart, const FVector& TraceDirection);
-	void ConsumeAmmo();
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void NotifyAmmoChanged();
 	void FinishReload();
-	void PlayFireCosmetics();
-	void ExecuteImpactGameplayCue(const FHitResult& HitResult);
-	FGameplayTag DetermineImpactCueTag(const FHitResult& HitResult) const;
 };

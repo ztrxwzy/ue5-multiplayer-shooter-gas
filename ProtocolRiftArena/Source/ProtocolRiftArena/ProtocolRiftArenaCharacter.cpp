@@ -19,7 +19,6 @@
 #include "GameplayEffectTypes.h"
 #include "PRAAttributeSet.h"
 #include "PRAGameplayTags.h"
-#include "AbilitySystemComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "GameFramework/PlayerController.h"
 
@@ -97,6 +96,7 @@ void AProtocolRiftArenaCharacter::BeginPlay()
 
 	if (HasAuthority())
 	{
+		GiveDefaultAbilities();
 		SpawnDefaultWeapon();
 	}
 
@@ -205,6 +205,30 @@ void AProtocolRiftArenaCharacter::InitializeAttributes()
 	}
 
 	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+}
+
+void AProtocolRiftArenaCharacter::GiveDefaultAbilities()
+{
+	if (!HasAuthority())
+	{
+		return;	
+	}
+	
+	if (!AbilitySystemComponent)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("GiveDefaultAbilities failed: ASC is null on %s."), *GetNameSafe(this));
+		return;
+	}
+	
+	if (FireAbilityClass)
+	{
+		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(FireAbilityClass,1,INDEX_NONE,this));
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Granted FireAbility to %s | Ability: %s"),*GetNameSafe(this),*GetNameSafe(FireAbilityClass));
+	}
+	else
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("FireAbilityClass is not set on %s."), *GetNameSafe(this));
+	}
 }
 
 // ============================================================================
@@ -641,22 +665,24 @@ void AProtocolRiftArenaCharacter::DoFireStart()
 	{
 		return;
 	}
-	if(!CurrentWeapon)
+	if (!AbilitySystemComponent)
 	{
-		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attempted to fire weapon while no weapon is equipped on %s."), *GetNameSafe(this));
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoFireStart failed: ASC is null on %s."), *GetNameSafe(this));
 		return;
 	}
-	CurrentWeapon->StartFire();
-}
 
-void AProtocolRiftArenaCharacter::DoFireEnd()
-{
-	if(!CurrentWeapon)
+	if (!FireAbilityClass)
 	{
-		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attempted to stop firing weapon while no weapon is equipped on %s."), *GetNameSafe(this));
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoFireStart failed: FireAbilityClass is not set on %s."), *GetNameSafe(this));
 		return;
 	}
-	CurrentWeapon->StopFire();
+	
+	const bool bActivated = AbilitySystemComponent->TryActivateAbilityByClass(FireAbilityClass);
+	
+	if (!bActivated)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoFireStart failed: could not activate FireAbility on %s."), *GetNameSafe(this));
+	}
 }
 
 void AProtocolRiftArenaCharacter::AttachCurrentWeaponToMesh()

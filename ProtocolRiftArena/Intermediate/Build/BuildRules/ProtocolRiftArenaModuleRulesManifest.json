@@ -1,6 +1,14 @@
 {
 	"SourceFiles": [
 		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Source\\ProtocolRiftArena\\ProtocolRiftArena.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\Developer\\RiderLink\\Source\\RD\\RD.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\Developer\\RiderLink\\Source\\RiderBlueprint\\RiderBlueprint.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\Developer\\RiderLink\\Source\\RiderDebuggerSupport\\RiderDebuggerSupport.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\Developer\\RiderLink\\Source\\RiderGameControl\\RiderGameControl.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\Developer\\RiderLink\\Source\\RiderLC\\RiderLC.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\Developer\\RiderLink\\Source\\RiderLink\\RiderLink.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\Developer\\RiderLink\\Source\\RiderLogging\\RiderLogging.Build.cs",
+		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\Developer\\RiderLink\\Source\\RiderShaderInfo\\RiderShaderInfo.Build.cs",
 		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\VisualStudioTools\\Source\\VisualStudioBlueprintDebuggerHelper\\VisualStudioBlueprintDebuggerHelper.Build.cs",
 		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\VisualStudioTools.Build.cs",
 		"E:\\Videogames\\ue5-multiplayer-shooter-gas\\ProtocolRiftArena\\Source\\ProtocolRiftArena.Target.cs",

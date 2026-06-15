@@ -9,7 +9,6 @@
 #include "GameplayTagContainer.h"
 #include "ProtocolRiftArenaCharacter.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCurrentWeaponChangedSignature, APRAWeaponBase*, NewWeapon);
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -21,6 +20,8 @@ class UAbilitySystemComponent;
 class UPRAAttributeSet;
 class UGameplayEffect;
 class UUserWidget;
+class UGameplayAbility;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCurrentWeaponChangedSignature, APRAWeaponBase*, NewWeapon);
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -135,6 +136,8 @@ protected:
 	UPRAAttributeSet* AttributeSet;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Attributes")
 	TSubclassOf<UGameplayEffect> DefaultAttributeEffect;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category= "GAS|Abilities")
+	TSubclassOf<UGameplayAbility> FireAbilityClass;
 
 	/**Death*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Death")
@@ -199,9 +202,13 @@ protected:
 
 	/** Initializes GAS attributes using the default attributes GameplayEffect */
 	void InitializeAttributes();
+	
+	/** Grants the default Gameplay Abilities owned by this character */
+	void GiveDefaultAbilities();
 
 	/** Returns true if the character is currently reloading their weapon */
 	bool IsReloadingWeapon() const;
+
 public:
 	/** Handles the character's death */
 	void HandleDeath();
