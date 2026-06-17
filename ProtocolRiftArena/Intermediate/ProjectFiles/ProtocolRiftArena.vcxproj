@@ -1262,6 +1262,12 @@
     <None Include="..\..\ProtocolRiftArena.uproject"/>
     <None Include="..\..\Source\ProtocolRiftArena.Target.cs"/>
     <None Include="..\..\Source\ProtocolRiftArenaEditor.Target.cs"/>
+    <ClCompile Include="..\..\Source\ProtocolRiftArena\GAS\GameplayAbility\PRAAbility_WeaponReload.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_9)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_10)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ProtocolRiftArena\GAS\GameplayAbility\PRAAbility_WeaponReload.h"/>
     <ClCompile Include="..\..\Source\ProtocolRiftArena\PRAAbility_WeaponFire.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_9)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_10)</ForcedIncludeFiles>

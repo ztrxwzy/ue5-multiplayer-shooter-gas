@@ -14,7 +14,6 @@ namespace PRAGameplayTags
 		return Tag;
 	}
 
-
 	FGameplayTag GameplayCue_Weapon_Impact_Default()
 	{
 		return FGameplayTag::RequestGameplayTag(TEXT("GameplayCue.Weapon.Impact.Default"));
@@ -38,5 +37,10 @@ namespace PRAGameplayTags
 	FGameplayTag GameplayCue_Weapon_Impact_Wood()
 	{
 		return FGameplayTag::RequestGameplayTag(TEXT("GameplayCue.Weapon.Impact.Wood"));
+	}
+
+	FGameplayTag State_Weapon_Reloading()
+	{
+		return FGameplayTag::RequestGameplayTag(TEXT("State.Weapon.Reloading"));
 	}
 }

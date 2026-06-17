@@ -1635,6 +1635,18 @@
     <Filter Include="Source\ProtocolRiftArena">
       <UniqueIdentifier>{7E0DCA2D-3147-3FEB-95C0-016770F6F402}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ProtocolRiftArena\GAS">
+      <UniqueIdentifier>{C7E787E0-0A79-3770-99B4-D6AC69EA6CFD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ProtocolRiftArena\GAS\GameplayAbility">
+      <UniqueIdentifier>{D61DE9BE-8FA3-3638-A237-1BA7D76EB95D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\ProtocolRiftArena\GAS\GameplayAbility\PRAAbility_WeaponReload.cpp">
+      <Filter>Source\ProtocolRiftArena\GAS\GameplayAbility</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ProtocolRiftArena\GAS\GameplayAbility\PRAAbility_WeaponReload.h">
+      <Filter>Source\ProtocolRiftArena\GAS\GameplayAbility</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\ProtocolRiftArena\PRAAbility_WeaponFire.cpp">
       <Filter>Source\ProtocolRiftArena</Filter>
     </ClCompile>

@@ -51,9 +51,6 @@ protected:
 	FOnAmmoChangedSignature OnAmmoChanged;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon|Reload")
 	float ReloadDuration = 1.5f;
-	UPROPERTY(ReplicatedUsing = OnRep_IsReloading, BlueprintReadOnly, Category = "Weapon|Reload")
-	bool bIsReloading;
-	FTimerHandle ReloadTimerHandle;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon|FX")
 	UNiagaraSystem* MuzzleFlashEffect;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon|FX")
@@ -76,25 +73,19 @@ public:
 	float GetLastFireTime() const { return LastFireTime; }
 	UFUNCTION(BlueprintCallable, Category = "Weapon|Ammo")
 	bool HasAmmo() const { return CurrentAmmo > 0; }
+	UFUNCTION(BlueprintPure, Category="Weapon|Reload")
+	float GetReloadDuration() const {return ReloadDuration; }
+	UFUNCTION(BlueprintPure, Category="Weapon|Reload")
+	bool CanReloadAmmoOnly() const;
 	UFUNCTION()
 	void OnRep_CurrentAmmo();
-	UFUNCTION(BlueprintCallable, Category = "Weapon|Reload")
-	void StartReload();
-	UFUNCTION(BlueprintPure, Category = "Weapon|Reload")
-	bool CanReload() const;
-	UFUNCTION(BlueprintPure, Category = "Weapon|Reload")
-	bool IsReloading() const { return bIsReloading; }
-	UFUNCTION()
-	void OnRep_IsReloading();
-	UFUNCTION(Server,Reliable)
-	void ServerStartReload();
 	bool ConsumeAmmo(int32 Amount = 1);
 	void MarkFired();
-
+	void RefillAmmo();
+	
 protected: 
 	AProtocolRiftArenaCharacter* GetOwningCharacter() const;
 	virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void NotifyAmmoChanged();
-	void FinishReload();
 };

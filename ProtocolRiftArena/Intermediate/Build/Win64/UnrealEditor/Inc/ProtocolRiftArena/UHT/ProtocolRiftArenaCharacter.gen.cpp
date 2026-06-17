@@ -354,42 +354,6 @@ DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execDoCrouchStart)
 }
 // ********** End Class AProtocolRiftArenaCharacter Function DoCrouchStart *************************
 
-// ********** Begin Class AProtocolRiftArenaCharacter Function DoFireEnd ***************************
-struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireEnd_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "Category", "Weapon" },
-		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
-	};
-#endif // WITH_METADATA
-
-// ********** Begin Function DoFireEnd constinit property declarations *****************************
-// ********** End Function DoFireEnd constinit property declarations *******************************
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireEnd_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AProtocolRiftArenaCharacter, nullptr, "DoFireEnd", 	nullptr, 
-	0, 
-0,
-RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireEnd_Statics::Function_MetaDataParams), Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireEnd_Statics::Function_MetaDataParams)},  };
-UFunction* Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireEnd()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireEnd_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AProtocolRiftArenaCharacter::execDoFireEnd)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->DoFireEnd();
-	P_NATIVE_END;
-}
-// ********** End Class AProtocolRiftArenaCharacter Function DoFireEnd *****************************
-
 // ********** Begin Class AProtocolRiftArenaCharacter Function DoFireStart *************************
 struct Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireStart_Statics
 {
@@ -1829,6 +1793,10 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ "Category", "GAS|Abilities" },
 		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReloadAbilityClass_MetaData[] = {
+		{ "Category", "GAS|Abilities" },
+		{ "ModuleRelativePath", "ProtocolRiftArenaCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DeathEffect_MetaData[] = {
 		{ "Category", "GAS|Death" },
 #if !UE_BUILD_SHIPPING
@@ -1893,6 +1861,7 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_AttributeSet;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_DefaultAttributeEffect;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_FireAbilityClass;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_ReloadAbilityClass;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_DeathEffect;
 	static void NewProp_bDeathStateApplied_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bDeathStateApplied;
@@ -1907,7 +1876,6 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ .NameUTF8 = UTF8TEXT("DoAimStart"), .Pointer = &AProtocolRiftArenaCharacter::execDoAimStart },
 		{ .NameUTF8 = UTF8TEXT("DoCrouchEnd"), .Pointer = &AProtocolRiftArenaCharacter::execDoCrouchEnd },
 		{ .NameUTF8 = UTF8TEXT("DoCrouchStart"), .Pointer = &AProtocolRiftArenaCharacter::execDoCrouchStart },
-		{ .NameUTF8 = UTF8TEXT("DoFireEnd"), .Pointer = &AProtocolRiftArenaCharacter::execDoFireEnd },
 		{ .NameUTF8 = UTF8TEXT("DoFireStart"), .Pointer = &AProtocolRiftArenaCharacter::execDoFireStart },
 		{ .NameUTF8 = UTF8TEXT("DoJumpEnd"), .Pointer = &AProtocolRiftArenaCharacter::execDoJumpEnd },
 		{ .NameUTF8 = UTF8TEXT("DoJumpStart"), .Pointer = &AProtocolRiftArenaCharacter::execDoJumpStart },
@@ -1941,7 +1909,6 @@ struct Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoAimStart, "DoAimStart" }, // 4019749272
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchEnd, "DoCrouchEnd" }, // 1454415708
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoCrouchStart, "DoCrouchStart" }, // 2875269798
-		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireEnd, "DoFireEnd" }, // 970556768
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoFireStart, "DoFireStart" }, // 127043865
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoJumpEnd, "DoJumpEnd" }, // 1013457243
 		{ &Z_Construct_UFunction_AProtocolRiftArenaCharacter_DoJumpStart, "DoJumpStart" }, // 3599227473
@@ -2027,6 +1994,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftA
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_AttributeSet = { "AttributeSet", nullptr, (EPropertyFlags)0x00200800000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, AttributeSet), Z_Construct_UClass_UPRAAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AttributeSet_MetaData), NewProp_AttributeSet_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_DefaultAttributeEffect = { "DefaultAttributeEffect", nullptr, (EPropertyFlags)0x0024080000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, DefaultAttributeEffect), Z_Construct_UClass_UClass_NoRegister, Z_Construct_UClass_UGameplayEffect_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefaultAttributeEffect_MetaData), NewProp_DefaultAttributeEffect_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_FireAbilityClass = { "FireAbilityClass", nullptr, (EPropertyFlags)0x0024080000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, FireAbilityClass), Z_Construct_UClass_UClass_NoRegister, Z_Construct_UClass_UGameplayAbility_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FireAbilityClass_MetaData), NewProp_FireAbilityClass_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_ReloadAbilityClass = { "ReloadAbilityClass", nullptr, (EPropertyFlags)0x0024080000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, ReloadAbilityClass), Z_Construct_UClass_UClass_NoRegister, Z_Construct_UClass_UGameplayAbility_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReloadAbilityClass_MetaData), NewProp_ReloadAbilityClass_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_DeathEffect = { "DeathEffect", nullptr, (EPropertyFlags)0x0024080000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AProtocolRiftArenaCharacter, DeathEffect), Z_Construct_UClass_UClass_NoRegister, Z_Construct_UClass_UGameplayEffect_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DeathEffect_MetaData), NewProp_DeathEffect_MetaData) };
 void Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bDeathStateApplied_SetBit(void* Obj)
 {
@@ -2071,6 +2039,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AProtocol
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_AttributeSet,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_DefaultAttributeEffect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_FireAbilityClass,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_ReloadAbilityClass,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_DeathEffect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_bDeathStateApplied,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AProtocolRiftArenaCharacter_Statics::NewProp_DeathScreenWidgetClass,
@@ -2137,10 +2106,10 @@ AProtocolRiftArenaCharacter::~AProtocolRiftArenaCharacter() {}
 struct Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 3359525063U) },
+		{ Z_Construct_UClass_AProtocolRiftArenaCharacter, AProtocolRiftArenaCharacter::StaticClass, TEXT("AProtocolRiftArenaCharacter"), &Z_Registration_Info_UClass_AProtocolRiftArenaCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProtocolRiftArenaCharacter), 2830077347U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_1450567718{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_438457330{
 	TEXT("/Script/ProtocolRiftArena"),
 	Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Videogames_ue5_multiplayer_shooter_gas_ProtocolRiftArena_Source_ProtocolRiftArena_ProtocolRiftArenaCharacter_h__Script_ProtocolRiftArena_Statics::ClassInfo),
 	nullptr, 0,

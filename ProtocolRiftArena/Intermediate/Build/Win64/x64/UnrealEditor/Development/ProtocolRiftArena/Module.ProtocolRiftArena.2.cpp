@@ -5,6 +5,7 @@
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/PlatformingGameMode.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/PlatformingPlayerController.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/PRAAbility_WeaponFire.gen.cpp"
+#include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/PRAAbility_WeaponReload.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/PRAAttributeSet.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/PRAGameplayAbility.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/PRAWeaponBase.gen.cpp"
@@ -12,3 +13,5 @@
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/ProtocolRiftArenaCharacter.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/ProtocolRiftArenaGameMode.gen.cpp"
 #include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/ProtocolRiftArenaPlayerController.gen.cpp"
+#include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingAIController.gen.cpp"
+#include "E:/Videogames/ue5-multiplayer-shooter-gas/ProtocolRiftArena/Intermediate/Build/Win64/UnrealEditor/Inc/ProtocolRiftArena/UHT/SideScrollingCameraManager.gen.cpp"

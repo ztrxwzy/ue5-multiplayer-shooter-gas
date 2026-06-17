@@ -138,6 +138,8 @@ protected:
 	TSubclassOf<UGameplayEffect> DefaultAttributeEffect;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category= "GAS|Abilities")
 	TSubclassOf<UGameplayAbility> FireAbilityClass;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category= "GAS|Abilities")
+	TSubclassOf<UGameplayAbility> ReloadAbilityClass;
 
 	/**Death*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Death")
@@ -289,8 +291,6 @@ public:
 	//Weapon
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void DoFireStart();
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void DoFireEnd();
 	UFUNCTION()
 	void OnRep_CurrentWeapon();
 	void AttachCurrentWeaponToMesh();

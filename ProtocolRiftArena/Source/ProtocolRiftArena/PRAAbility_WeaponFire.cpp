@@ -93,8 +93,14 @@ bool UPRAAbility_WeaponFire::CanFireWeapon(const AProtocolRiftArenaCharacter* Ch
 	{
 		return false;
 	}
+	
+	const UAbilitySystemComponent* ASC = Character->GetAbilitySystemComponent();
+	if (!ASC)
+	{
+		return false;
+	}
 
-	if (Weapon->IsReloading())
+	if (ASC->HasMatchingGameplayTag(PRAGameplayTags::State_Weapon_Reloading()))
 	{
 		return false;
 	}

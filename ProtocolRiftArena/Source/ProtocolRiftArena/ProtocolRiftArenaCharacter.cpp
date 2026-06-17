@@ -153,7 +153,6 @@ void AProtocolRiftArenaCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 
 		//Fire
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoFireStart);
-		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Completed, this, &AProtocolRiftArenaCharacter::DoFireEnd);
 
 		//Reload
 		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Started, this, &AProtocolRiftArenaCharacter::DoReload);
@@ -228,6 +227,16 @@ void AProtocolRiftArenaCharacter::GiveDefaultAbilities()
 	else
 	{
 		UE_LOG(LogProtocolRiftArena, Warning, TEXT("FireAbilityClass is not set on %s."), *GetNameSafe(this));
+	}
+	
+	if (ReloadAbilityClass)
+	{
+		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(ReloadAbilityClass,1,INDEX_NONE,this));
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Granted ReloadAbility to %s | Ability: %s"), *GetNameSafe(this),*GetNameSafe(ReloadAbilityClass));
+	}
+	else
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("ReloadAbilityClass is not set on %s."), *GetNameSafe(this));
 	}
 }
 
@@ -676,6 +685,7 @@ void AProtocolRiftArenaCharacter::DoFireStart()
 		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoFireStart failed: FireAbilityClass is not set on %s."), *GetNameSafe(this));
 		return;
 	}
+	}
 	
 	const bool bActivated = AbilitySystemComponent->TryActivateAbilityByClass(FireAbilityClass);
 	
@@ -715,17 +725,28 @@ void AProtocolRiftArenaCharacter::DoReload()
 	{
 		return;
 	}
-	if (!CurrentWeapon)
+	if (!AbilitySystemComponent)
 	{
-		UE_LOG(LogProtocolRiftArena, Warning, TEXT("Attempted to reload weapon while no weapon is equipped on %s."), *GetNameSafe(this));
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoReload failed: ASC is null on %s."), *GetNameSafe(this));
 		return;
 	}
-	CurrentWeapon->StartReload();
+
+	if (!ReloadAbilityClass)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoReload failed: ReloadAbilityClass is not set on %s."), *GetNameSafe(this));
+		return;
+	}
+	const bool bActivated = AbilitySystemComponent->TryActivateAbilityByClass(ReloadAbilityClass);
+	if (!bActivated)
+	{
+		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoReload failed: could not activate ReloadAbility on %s."), *GetNameSafe(this));
+	}
 }
 
 bool AProtocolRiftArenaCharacter::IsReloadingWeapon() const
 {
-	return CurrentWeapon && CurrentWeapon->IsReloading();
+	const UAbilitySystemComponent* ASC = GetAbilitySystemComponent();
+	return ASC && ASC->HasMatchingGameplayTag(PRAGameplayTags::State_Weapon_Reloading());
 }
 
 // ============================================================================
@@ -784,8 +805,7 @@ void AProtocolRiftArenaCharacter::ApplyDeathEffects()
 	}
 
 	bDeathStateApplied = true;
-
-	DoFireEnd();
+	
 	SetAiming(false);
 	SetSprinting(false);
 

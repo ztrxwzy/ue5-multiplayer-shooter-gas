@@ -33,7 +33,6 @@ PROTOCOLRIFTARENA_API void FOnCurrentWeaponChangedSignature_DelegateWrapper(cons
 	DECLARE_FUNCTION(execGetAttributeSet); \
 	DECLARE_FUNCTION(execGetCurrentWeapon); \
 	DECLARE_FUNCTION(execOnRep_CurrentWeapon); \
-	DECLARE_FUNCTION(execDoFireEnd); \
 	DECLARE_FUNCTION(execDoFireStart); \
 	DECLARE_FUNCTION(execServerSetWantsToAim); \
 	DECLARE_FUNCTION(execOnRep_IsAiming); \
