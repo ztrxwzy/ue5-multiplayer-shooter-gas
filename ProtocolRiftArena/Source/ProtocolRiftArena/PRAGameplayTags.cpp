@@ -43,4 +43,9 @@ namespace PRAGameplayTags
 	{
 		return FGameplayTag::RequestGameplayTag(TEXT("State.Weapon.Reloading"));
 	}
+
+	FGameplayTag GameplayCue_Weapon_Fire()
+	{
+		return FGameplayTag::RequestGameplayTag(TEXT("GameplayCue.Weapon.Fire"));
+	}
 }

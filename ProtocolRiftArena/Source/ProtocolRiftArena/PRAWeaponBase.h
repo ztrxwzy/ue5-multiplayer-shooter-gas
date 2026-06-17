@@ -77,6 +77,12 @@ public:
 	float GetReloadDuration() const {return ReloadDuration; }
 	UFUNCTION(BlueprintPure, Category="Weapon|Reload")
 	bool CanReloadAmmoOnly() const;
+	UFUNCTION(BlueprintPure, Category="Weapon|Fire")
+	USceneComponent* GetMuzzlePoint() const {return MuzzlePoint; }
+	UFUNCTION(BlueprintPure, Category="Weapon|FX")
+	UNiagaraSystem* GetMuzzleFlashEffect() const { return MuzzleFlashEffect; }
+	UFUNCTION(BlueprintPure,Category="Weapon|FX")
+	USoundBase* GetFireSound() const { return FireSound; }
 	UFUNCTION()
 	void OnRep_CurrentAmmo();
 	bool ConsumeAmmo(int32 Amount = 1);

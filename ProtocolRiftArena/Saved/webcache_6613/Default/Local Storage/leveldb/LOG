@@ -1,15 +1,5 @@
-2026/06/17-10:01:54.869 1548 Reusing MANIFEST E:\Videogames\ue5-multiplayer-shooter-gas\ProtocolRiftArena\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
-2026/06/17-10:01:54.873 1548 Recovering log #594
-2026/06/17-10:01:54.982 1548 Reusing old log E:\Videogames\ue5-multiplayer-shooter-gas\ProtocolRiftArena\Saved\webcache_6613\Default\Local Storage\leveldb/000594.log 
-2026/06/17-12:26:39.961 6b08 Level-0 table #597: started
-2026/06/17-12:26:40.035 6b08 Level-0 table #597: 69869 bytes OK
-2026/06/17-12:26:40.063 6b08 Delete type=0 #594
-2026/06/17-12:26:40.076 6b08 Compacting 4@0 + 1@1 files
-2026/06/17-12:26:40.138 6b08 Generated table #598@0: 7 keys, 47614 bytes
-2026/06/17-12:26:40.138 6b08 Compacted 4@0 + 1@1 files => 47614 bytes
-2026/06/17-12:26:40.254 6b08 compacted to: files[ 0 1 0 0 0 0 0 ]
-2026/06/17-12:26:40.255 6b08 Delete type=2 #585
-2026/06/17-12:26:40.255 6b08 Delete type=2 #588
-2026/06/17-12:26:40.255 6b08 Delete type=2 #590
-2026/06/17-12:26:40.255 6b08 Delete type=2 #593
-2026/06/17-12:26:40.255 6b08 Delete type=2 #597
+2026/06/17-13:58:11.898 12b4 Reusing MANIFEST E:\Videogames\ue5-multiplayer-shooter-gas\ProtocolRiftArena\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
+2026/06/17-13:58:11.902 12b4 Recovering log #596
+2026/06/17-13:58:11.902 12b4 Level-0 table #600: started
+2026/06/17-13:58:11.950 12b4 Level-0 table #600: 71447 bytes OK
+2026/06/17-13:58:11.970 12b4 Delete type=0 #596

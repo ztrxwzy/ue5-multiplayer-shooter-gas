@@ -65,7 +65,8 @@ void UPRAAbility_WeaponFire::ActivateAbility(const FGameplayAbilitySpecHandle Ha
 	}
 
 	Weapon->MarkFired();
-
+	ExecuteFireGameplayCue(Character,Weapon);
+	
 	FHitResult HitResult;
 	const bool bHit = PerformFireTrace(Character, Weapon, TraceStart, TraceEnd, HitResult);
 
@@ -279,4 +280,38 @@ void UPRAAbility_WeaponFire::ExecuteImpactGameplayCue(
 	CueParams.TargetAttachComponent = HitResult.GetComponent();
 
 	SourceASC->ExecuteGameplayCue(ImpactCueTag, CueParams);
+}
+
+void UPRAAbility_WeaponFire::ExecuteFireGameplayCue(AProtocolRiftArenaCharacter* Character, APRAWeaponBase* Weapon)
+{
+	if (!Character || !Weapon)
+	{
+		return;
+	}
+	
+	UAbilitySystemComponent* SourceASC = Character->GetAbilitySystemComponent();
+	if (!SourceASC)
+	{
+		return;
+	}
+	
+	USceneComponent* MuzzlePoint = Weapon->GetMuzzlePoint();
+	if (!MuzzlePoint)
+	{
+		return;
+	}
+	
+	FGameplayEffectContextHandle EffectContext = SourceASC->MakeEffectContext();
+	EffectContext.AddSourceObject(Weapon);
+	
+	FGameplayCueParameters CueParams;
+	CueParams.Location = MuzzlePoint->GetComponentLocation();
+	CueParams.Normal = MuzzlePoint->GetForwardVector();
+	CueParams.EffectContext = EffectContext;
+	CueParams.Instigator = Character;
+	CueParams.EffectCauser = Weapon;
+	CueParams.SourceObject = Weapon;
+	CueParams.TargetAttachComponent = MuzzlePoint;
+	
+	SourceASC->ExecuteGameplayCue(PRAGameplayTags::GameplayCue_Weapon_Fire(), CueParams);
 }

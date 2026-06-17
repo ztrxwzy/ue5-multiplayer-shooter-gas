@@ -27,5 +27,6 @@ protected:
 	bool PerformFireTrace(const AProtocolRiftArenaCharacter* Character, const APRAWeaponBase* Weaon, const FVector& TraceStart, const FVector& TraceEnd, FHitResult& OutHitResult) const;
 	void ApplyDamageToHitActor(AProtocolRiftArenaCharacter* Character, APRAWeaponBase* Weapon, const FHitResult& HitResult);
 	void ExecuteImpactGameplayCue(AProtocolRiftArenaCharacter* Character, APRAWeaponBase* Weapon, const FHitResult& HitResult);
+	void ExecuteFireGameplayCue(AProtocolRiftArenaCharacter* Character , APRAWeaponBase* Weapon);
 	FGameplayTag DetermineImpactCueTag(const FHitResult& HitResult) const;
 };

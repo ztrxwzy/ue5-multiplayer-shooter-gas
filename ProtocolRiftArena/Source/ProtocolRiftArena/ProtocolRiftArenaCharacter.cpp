@@ -685,7 +685,6 @@ void AProtocolRiftArenaCharacter::DoFireStart()
 		UE_LOG(LogProtocolRiftArena, Warning, TEXT("DoFireStart failed: FireAbilityClass is not set on %s."), *GetNameSafe(this));
 		return;
 	}
-	}
 	
 	const bool bActivated = AbilitySystemComponent->TryActivateAbilityByClass(FireAbilityClass);
 	

@@ -13,5 +13,6 @@ namespace PRAGameplayTags
 	FGameplayTag GameplayCue_Weapon_Impact_Metal();
 	FGameplayTag GameplayCue_Weapon_Impact_Wood();
 	FGameplayTag State_Weapon_Reloading();
+	FGameplayTag GameplayCue_Weapon_Fire();
 }
 
